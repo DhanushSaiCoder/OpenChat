@@ -5,11 +5,6 @@ const Home = () => {
         <div className='home'>
             <div id='darker'>
                 <h2>Hello</h2>
-                <h2>Hello</h2>
-                <h2>Hello</h2>
-                <h2>Hello</h2>
-                <h2>Hello</h2>
-
             </div>
         </div >
     );
