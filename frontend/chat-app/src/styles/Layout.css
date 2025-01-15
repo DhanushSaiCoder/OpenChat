@@ -4,14 +4,14 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
-  
-  body {
-    font-family: 'Arial', sans-serif;
+}
+
+body {
+    font-family: "Arial", sans-serif;
     background-color: #f4f7fc;
-  }
-  
-  .navbar {
+}
+
+.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -23,56 +23,65 @@
     left: 0;
     right: 0;
     z-index: 1000;
-    transition: all 0.3s ease;
-  }
-  
-  .navbar-logo h2 {
+    transition: all 0.23s ease;
+}
+
+.navbar-logo h2 {
     font-size: 28px;
     letter-spacing: 1px;
     cursor: pointer;
-  }
-  
-  .navbar-links {
+}
+
+.navbar-links {
     list-style: none;
     display: flex;
     gap: 30px;
-  }
-  
-  .navbar-links li {
+}
+
+.navbar-links li {
     position: relative;
-  }
-  
-  .navbar-links a {
+}
+
+.navbar-links a {
     text-decoration: none;
     color: #fff;
     font-size: 16px;
     text-transform: uppercase;
     transition: color 0.3s ease;
-  }
-  
-  .navbar-links a:hover {
-    color: #4AC29C;
-  }
-  
-  .navbar-links a.active {
-    color: #4AC29C;
+}
+
+.navbar-links a:hover {
+    color: #4ac29c;
+}
+
+.navbar-links a.active {
+    color: #4ac29c;
     font-weight: bold;
-  }
-  
-  @media screen and (max-width: 768px) {
+}
+
+.appLogo {
+    text-decoration: none;
+    color: white;
+    opacity: 0.9;
+}
+
+.appLogo:hover {
+    opacity: 1;
+}
+
+@media screen and (max-width: 768px) {
     .navbar-links {
-      display: none;
-      flex-direction: column;
-      position: absolute;
-      top: 60px;
-      right: 0;
-      background-color: #333;
-      width: 100%;
-      padding: 20px 0;
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #333;
+        width: 100%;
+        padding: 20px 0;
     }
-  
+
     .navbar-links.active {
-      display: flex;
+        display: flex;
     }
-  }
-  
+}

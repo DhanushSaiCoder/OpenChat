@@ -22,14 +22,10 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Header />}>
-          <Route path='/' element={<Home />} />
+          <Route index  element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
 
-
-          {/* <Route path="blogs" element={<Blogs />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="*" element={<NoPage />} /> */}
         </Route>
       </Routes>
     </BrowserRouter>
