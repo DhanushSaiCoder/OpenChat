@@ -12,11 +12,12 @@ body {
 }
 
 .navbar {
+    height: 7.5vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 40px;
-    background-color: #333;
+    background: linear-gradient(135deg, #373d7b, #286755);
     color: #fff;
     position: fixed;
     top: 0;

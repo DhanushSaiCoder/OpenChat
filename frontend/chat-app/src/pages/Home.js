@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
-
+import '../styles/Home.css'
 const Home = () => {
-    return (<h1 style={{ color: 'black' }}>Home</h1>);
+    return (
+        <div className='home'>
+            <div id='darker'>
+                <h2>Hello</h2>
+                <h2>Hello</h2>
+                <h2>Hello</h2>
+                <h2>Hello</h2>
+                <h2>Hello</h2>
+
+            </div>
+        </div >
+    );
 }
 
 export default Home;

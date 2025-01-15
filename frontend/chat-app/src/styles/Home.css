@@ -1,0 +1,14 @@
+.home{
+    margin-top: 7.5vh;
+    background: linear-gradient(135deg, #6E7DFF, #4AC29C);
+    width: 100vw;
+    height: 92.5vh;
+    color: #f4f5ff;
+
+}
+#darker{
+    background-color: rgba(0, 0, 0, 0.753);
+    width: 100vw;
+    height: 92.5vh;
+
+}

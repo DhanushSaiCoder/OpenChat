@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './pages/Home';
-import Header from './pages/Layout';
+import Layout from './pages/Layout';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 
@@ -21,11 +21,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Header />}>
-          <Route index  element={<Home />} />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
-
         </Route>
       </Routes>
     </BrowserRouter>
