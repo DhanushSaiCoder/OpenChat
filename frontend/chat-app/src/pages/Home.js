@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import '../styles/Home.css'
+import Layout from '../components/Layout';
 const Home = () => {
     return (
-        <div className='home'>
+        <div className='container'>
             <div id='darker'>
-                <h2>Hello</h2>
-            </div>
-        </div >
+                <div className='home'>
+
+                    <Layout />
+                    <h2>Hello</h2>
+                </div>
+            </div >
+        </div>
     );
 }
 

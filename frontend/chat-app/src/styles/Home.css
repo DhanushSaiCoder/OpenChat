@@ -1,14 +1,24 @@
-.home{
-    margin-top: 7.5vh;
-    background: linear-gradient(135deg, #6E7DFF, #4AC29C);
+.container {
+    background: linear-gradient(135deg, #6e7dff, #4ac29c);
     width: 100vw;
-    height: 92.5vh;
+    height: 100vh;
     color: #f4f5ff;
-
+   
 }
-#darker{
-    background-color: rgba(0, 0, 0, 0.753);
-    width: 100vw;
-    height: 92.5vh;
-
+.home {
+    width: 90%;
+    height: 85%;
+    border: 1px solid rgba(255, 255, 255, 0.278);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+#darker {
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

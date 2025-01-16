@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/Login.css';  // Import the CSS file
+import Layout from './../components/Layout';
 
 const Login = () => {
   // State to hold input values
@@ -27,6 +28,8 @@ const Login = () => {
 
   return (
     <div className="container">
+      <Layout />
+
       <div className="card">
         <h2 className="heading">Login</h2>
         {error && <p className="error">{error}</p>}
