@@ -18,7 +18,7 @@ router.get('/login', (req, res) => {
 
 // Signup Route - Hash the password before saving
 router.post("/signup", async (req, res) => {
-  const { pin, email, password } = req.body;
+  const { email, password, username, friends } = req.body;
 
   try {
     const existingUser = await User.findOne({ email });
@@ -26,9 +26,17 @@ router.post("/signup", async (req, res) => {
       return res.status(400).json({ message: "User already exists" });
     }
 
+    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = new User({ pin, email, password: hashedPassword });
+    // Create new user with friends list if provided
+    const newUser = new User({
+      email,
+      password: hashedPassword,
+      username,
+      friends: friends || []  // Set friends to the provided array or an empty array
+    });
+
     await newUser.save();
 
     // Generate JWT token for the new user
@@ -39,6 +47,7 @@ router.post("/signup", async (req, res) => {
     res.status(500).send(err.message);
   }
 });
+
 
 // Login Route - Compare the entered password with the hashed password
 router.post("/login", async (req, res) => {
