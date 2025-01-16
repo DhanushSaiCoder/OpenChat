@@ -8,11 +8,12 @@
 .home {
     width: 90%;
     height: 85%;
-    border: 1px solid rgba(255, 255, 255, 0.278);
+    /* border: 1px solid rgba(255, 255, 255, 0.278); */
     display: flex;
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
+    flex-wrap: nowrap;
 }
 #darker {
     background-color: rgba(0, 0, 0, 0.8);

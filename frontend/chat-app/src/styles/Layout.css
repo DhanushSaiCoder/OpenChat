@@ -12,13 +12,13 @@ body {
 }
 
 .navbar {
-    height: 8.7vh;
+    height: 10%;
     width: 90vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 55px;
-    background: rgba(112, 188, 255, 0.9129);
+    background: rgb(34, 54, 72);
     color: #fff;
     
     border-radius: 20px;
