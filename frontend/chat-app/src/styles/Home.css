@@ -5,8 +5,8 @@
     color: #f4f5ff;
 }
 .home {
-    width: 90%;
-    height: 85%;
+    width: 95%;
+    height: 100%;
     /* border: 1px solid rgba(255, 255, 255, 0.278); */
     display: flex;
     align-items: center;
