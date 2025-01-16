@@ -15,7 +15,9 @@
     flex-wrap: nowrap;
 }
 #darker {
-    background-color: rgba(0, 0, 0, 0.8);
+    /* background-color: rgba(0, 0, 0, 0.85); */
+    background: rgba(21, 33, 44, 0.99);
+
     width: 100%;
     height: 100%;
     display: flex;
