@@ -26,3 +26,25 @@ content-type: application/json
         "message":"Help me"
     }
 }
+###
+GET http://localhost:5000/conversation/3789236e978637399bb6be28
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzg5MjNkMTk3ODYzNzM5OWJiNmJlMjciLCJpYXQiOjE3MzcwODc4MjcsImV4cCI6MTczNzA5MTQyN30.GTdGTIRYHFOCp8mcTg0mH_QzXsv3XgTJ5LMMGbMnkZk
+content-type: application/json
+
+{
+    "participants": ["alkjsfd;dfjkadfasdfv","lkahsdlfkhvwelkfjnhas"],
+    "lastMessage": {
+        "message":"Help me"
+    }
+}
+###
+DELETE  http://localhost:5000/conversation/3789236e978637399bb6be28
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzg5MjNkMTk3ODYzNzM5OWJiNmJlMjciLCJpYXQiOjE3MzcwODc4MjcsImV4cCI6MTczNzA5MTQyN30.GTdGTIRYHFOCp8mcTg0mH_QzXsv3XgTJ5LMMGbMnkZk
+content-type: application/json
+
+{
+    "participants": ["alkjsfd;dfjkadfasdfv","lkahsdlfkhvwelkfjnhas"],
+    "lastMessage": {
+        "message":"Help me"
+    }
+}
