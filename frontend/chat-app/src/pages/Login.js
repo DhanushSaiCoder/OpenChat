@@ -7,7 +7,8 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate(); // Use useNavigate for React Router v6
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,8 +34,8 @@ const Login = () => {
 
       if (response.ok) {
         const { token } = data;
-        localStorage.setItem('token', token); // Save token to local storage or state
-        navigate('/'); // Use navigate instead of window.location.href for React Router
+        localStorage.setItem('token', token);
+        navigate('/');
       } else {
         setError(data.message || 'Invalid credentials or server error');
       }
@@ -65,14 +66,23 @@ const Login = () => {
           </div>
           <div className="inputGroup">
             <label className="label" htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter your password"
-              className="input"
-            />
+            <div className="passwordWrapper">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                className="input passwordInput"
+              />
+              <button
+                type="button"
+                className="showHidePassword"
+                onClick={() => setShowPassword((prev) => !prev)}
+              >
+                {showPassword ? 'Hide' : 'Show'}
+              </button>
+            </div>
           </div>
 
           <p id='already'>Do not have an account?</p><Link to='/auth/signup'>Sign Up</Link>
