@@ -6,7 +6,7 @@ const Layout = () => {
     <>
       <nav className="navbar">
         <div className="navbar-logo">
-          <h2 ><Link className="appLogo" to="/">MyApp</Link></h2>
+          <h2 ><Link className="appLogo" to="/">Chat Now</Link></h2>
         </div>
         <ul className="navbar-links">
           <li><Link to="/">Home</Link></li>
