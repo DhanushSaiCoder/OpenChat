@@ -7,9 +7,12 @@ const conversationSchema = new mongoose.Schema({
     required: true
   },
   lastMessage: {
-    senderId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    content: { type: String },
-    createdAt: { type: Date, default: Date.now }
+    type: {
+      senderId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+      content: { type: String },
+      createdAt: { type: Date, default: Date.now }
+    },
+    default: {} // Initialize as an empty object if not provided
   }
 },
   { timestamps: true });
@@ -21,11 +24,10 @@ const validateConversation = (conversation) => {
       .min(2)  // Minimum of two participants for a conversation
       .required(),
     lastMessage: Joi.object({
-      senderId: Joi.string().hex().length(24).required(),
-      content: Joi.string().required(),
-      type: Joi.string().valid('text', 'image', 'video').default('text'),
-      createdAt: Joi.date().default(Date.now)
-    }).required()
+      senderId: Joi.string().hex().length(24).optional(),
+      content: Joi.string().optional(),
+      createdAt: Joi.date().optional()
+    }).optional()
   });
 
   return schema.validate(conversation);

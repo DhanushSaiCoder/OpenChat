@@ -24,7 +24,10 @@ router.get('/:otherUser', authenticateToken, async (req, res) => {
         });
 
         if (!conversation) {
-            return res.status(404).json({ message: 'No conversation found between these users' });
+            return res.status(404).json({ 
+                message: 'No conversation found between these users' ,
+                short: 'noConvFound'
+            });
         }
 
         // Send the response
