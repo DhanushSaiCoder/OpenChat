@@ -16,7 +16,7 @@ router.get('/', authenticateToken, async (req, res) => {
       // Find all conversations where the user is a participant
       const conversations = await Conversation.find({
         participants: { $in: [userId] }
-      }).populate('participants', '_id name email'); // Optional: Populate participant details like name or email
+      }).populate('participants', '_id name email username'); // Optional: Populate participant details like name or email
   
       if (conversations.length === 0) {
         return res.status(404).json({

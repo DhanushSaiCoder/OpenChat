@@ -4,7 +4,7 @@ import '../styles/ChatList.css'
 
 const ChatList = () => {
     const baseURL = 'http://localhost:5000'
-    const [userId, setUserId] = userState('')
+    const [userId, setUserId] = useState('')
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -31,6 +31,21 @@ const ChatList = () => {
     useEffect(() => {
         if (userId != '') {
             //get all the conversations that user is involved in...
+            const token = localStorage.getItem('token');
+
+            fetch(`${baseURL}/conversation`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data)
+                })
+                .catch((error) => {
+                    console.error('Error fetching user ID:', error);
+                });
         }
     }, [userId])
 
