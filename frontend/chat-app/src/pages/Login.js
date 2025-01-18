@@ -1,35 +1,53 @@
 import React, { useState } from 'react';
-import '../styles/Login.css';  // Import the CSS file
-import Layout from './../components/Layout';
-import { Link } from 'react-router-dom';
+import '../styles/Login.css'; 
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  // State to hold input values
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate(); // Use useNavigate for React Router v6
 
-  // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic validation for empty fields
     if (!email || !password) {
       setError('Both fields are required.');
       return;
     }
 
-    // Proceed with login logic
-    console.log('Logging in with:', { email, password });
-    setError(''); // Clear error if validation passes
+    setIsLoading(true);
+    setError('');
 
-    // Simulate successful login (replace with real authentication logic)
-    alert('Login Successful!');
+    try {
+      const response = await fetch('http://localhost:5000/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        const { token } = data;
+        localStorage.setItem('token', token); // Save token to local storage or state
+        navigate('/'); // Use navigate instead of window.location.href for React Router
+      } else {
+        setError(data.message || 'Invalid credentials or server error');
+      }
+    } catch (err) {
+      setError('An error occurred while logging in');
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="container">
-
       <div className="card">
         <h2 className="heading">Login</h2>
         {error && <p className="error">{error}</p>}
@@ -42,7 +60,6 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
-              required
               className="input"
             />
           </div>
@@ -54,14 +71,15 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
-              required
               className="input"
             />
           </div>
 
-          <p id='already'>Do not have an account?</p><Link to='/auth/signup'>Sing Up</Link>
+          <p id='already'>Do not have an account?</p><Link to='/auth/signup'>Sign Up</Link>
 
-          <button type="submit" className="button">Login</button>
+          <button type="submit" className="button" disabled={isLoading}>
+            {isLoading ? 'Logging in...' : 'Login'}
+          </button>
         </form>
       </div>
     </div>
