@@ -3,6 +3,8 @@ import '../styles/SignUp.css';  // Import the CSS file
 import { Link } from 'react-router-dom';
 
 const SignUp = () => {
+  const baseURL = 'http://localhost:5000'
+
   // State to hold input values
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -24,7 +26,7 @@ const SignUp = () => {
     setStep(step + 1);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Basic validation for email and passwords
@@ -39,9 +41,35 @@ const SignUp = () => {
       return;
     }
 
-    // Proceed with signup logic
-    console.log('Signing up with:', { username, email, password });
+    // Clear any existing errors
+    setError('');
+
+    try {
+      // Send POST request to the signup endpoint
+      const response = await fetch('http://localhost:5000/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, email, password }),
+      });
+
+      // Handle the response
+      const data = await response.json();
+      if (response.ok) {
+        console.log('Signup successful:', data.message);
+        localStorage.setItem('token',JSON.stringify(data.token))
+        window.location.href='/'
+      } else {
+        // Handle errors from the server
+        setError(data.message || 'Signup failed. Please try again.');
+      }
+    } catch (err) {
+      console.error('Error during signup:', err);
+      setError('An unexpected error occurred. Please try again later.');
+    }
   };
+
 
   return (
     <div className="container">

@@ -48,7 +48,6 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-
 // Login Route - Compare the entered password with the hashed password
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
