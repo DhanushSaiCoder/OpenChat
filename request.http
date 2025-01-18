@@ -26,12 +26,12 @@ content-type: application/json
     "username": "dhanush"
 }
 ###
-POST http://localhost:5000/conversation/678b9c70870eb8ca39e2eb9d
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzhiOWQxNDg3MGViOGNhMzllMmViYTAiLCJpYXQiOjE3MzcyMDI5NjQsImV4cCI6MTczNzIwNjU2NH0.EjHccIdcDE50fWOEyfsTeGtc5ljgbHWXrT_Y-4nrjDk
+POST http://localhost:5000/conversation/678b8461dcad13bac9d13c3c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzhiOWQxNDg3MGViOGNhMzllMmViYTAiLCJpYXQiOjE3MzcyMDY5MDMsImV4cCI6MTczNzIxMDUwM30.o7CfDQGOG483zu1ikTHTTg7MwFOn7ZH9Crn3HLI2bVA
 content-type: application/json
 
 {
-    "participants": ["678b9c70870eb8ca39e2eb9d","678b9d14870eb8ca39e2eba0"],
+    "participants": ["678b8461dcad13bac9d13c3c","678b9d14870eb8ca39e2eba0"],
     "lastMessage": {
         "message":"user d && user e"
     }
