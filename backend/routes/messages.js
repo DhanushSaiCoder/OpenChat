@@ -6,13 +6,32 @@ const authenticateToken = require('../middleware/authenticateToken')
 const {Conversation} = require('../models/Conversation')
 const { Message, validateMessage } = require('../models/Message')
 
-//get all messages with id of senderid and reciver id 
-router.get('/:otherUser', authenticateToken, async (req,res) => {
-    const userId = req.user.userId
-    const otherUserId = req.params.otherUser
+// Get all messages between the current user and the other user
+router.get('/:otherUser', authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.userId; // Extract the logged-in user's ID
+    const otherUserId = req.params.otherUser; // Extract the other user's ID from the URL parameter
 
+    // Find all messages between the two users
+    const messagesDocs = await Message.find({
+      $or: [
+        { senderId: userId, reciverId: otherUserId },
+        { senderId: otherUserId, reciverId: userId }
+      ]
+    }).sort({ createdAt: 1 }); // Sort messages by creation time in ascending order
 
-})
+    const messages=[]
+    for(i in messagesDocs){
+      messages.push(messagesDocs[i].message)
+    }
+    // Send the messages as a response
+    res.status(200).json(messages);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error. Could not retrieve messages.' });
+  }
+});
+
 
 // POST a message
 router.post('/:otherUser', authenticateToken, async (req, res) => {
