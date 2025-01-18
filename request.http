@@ -1,3 +1,13 @@
+GET http://localhost:5000/auth/
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzhiODQ2MWRjYWQxM2JhYzlkMTNjM2MiLCJpYXQiOjE3MzcxOTg4MTUsImV4cCI6MTczNzIwMjQxNX0.ce0FqOCfp6QX4K75jdcwuKzu3aX1wa6HEqZikRLL2vM
+
+{
+    "email": "dhanushsai1467@gmail.com",
+    "password": "Dhanush@2007",
+    "username": "dhanush"
+}
+###
 POST http://localhost:5000/auth/signup
 content-type: application/json
 
@@ -17,7 +27,7 @@ content-type: application/json
 }
 ###
 POST http://localhost:5000/conversation/3789236e978637399bb6be28
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzg5MjNkMTk3ODYzNzM5OWJiNmJlMjciLCJpYXQiOjE3MzcwOTE0NzcsImV4cCI6MTczNzA5NTA3N30.lr_gSvdhj8bo8wc1SD9ZIbfFenHqgs6GuvqwlgLzYAc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzhiODQ2MWRjYWQxM2JhYzlkMTNjM2MiLCJpYXQiOjE3MzcxOTg4MTUsImV4cCI6MTczNzIwMjQxNX0.ce0FqOCfp6QX4K75jdcwuKzu3aX1wa6HEqZikRLL2vM
 content-type: application/json
 
 {

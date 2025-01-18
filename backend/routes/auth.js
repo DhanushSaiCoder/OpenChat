@@ -3,6 +3,12 @@ const bcrypt = require("bcrypt"); // Import bcrypt for hashing and comparing pas
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const router = express.Router();
+const authenticateToken = require('../middleware/authenticateToken')
+
+//get user id
+router.get('',authenticateToken, async (req,res) => {
+  res.send(req.user.userId)
+})
 
 // Serve the signup page
 router.get('/signup', (req, res) => {

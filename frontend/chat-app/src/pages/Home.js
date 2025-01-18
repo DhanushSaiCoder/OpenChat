@@ -8,6 +8,8 @@ import ChatBox from './../components/ChatBox';
 const Home = () => {
   const navigate = useNavigate(); // Initialize useNavigate hook
 
+  
+
   useEffect(() => {
     // Check if token exists in localStorage
     if (!localStorage.getItem('token')) {
