@@ -17,7 +17,7 @@ content-type: application/json
 }
 ###
 POST http://localhost:5000/conversation/3789236e978637399bb6be28
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzg5MjNkMTk3ODYzNzM5OWJiNmJlMjciLCJpYXQiOjE3MzcwODc4MjcsImV4cCI6MTczNzA5MTQyN30.GTdGTIRYHFOCp8mcTg0mH_QzXsv3XgTJ5LMMGbMnkZk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzg5MjNkMTk3ODYzNzM5OWJiNmJlMjciLCJpYXQiOjE3MzcwOTE0NzcsImV4cCI6MTczNzA5NTA3N30.lr_gSvdhj8bo8wc1SD9ZIbfFenHqgs6GuvqwlgLzYAc
 content-type: application/json
 
 {
@@ -48,3 +48,17 @@ content-type: application/json
         "message":"Help me"
     }
 }
+###
+POST  http://localhost:5000/message/3789236e978637399bb6be28
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzg5MjNkMTk3ODYzNzM5OWJiNmJlMjciLCJpYXQiOjE3MzcxOTI3ODEsImV4cCI6MTczNzE5NjM4MX0.YgIwFoAjAtA_LH1giajoSb5_bv25Dty1C06lqPQnICw
+content-type: application/json
+
+{
+    "conversationId": "6789dccc97f472291da24030",
+    "message": "askjdfalskdf are you, dhanush"
+}
+###
+GET  http://localhost:5000/message/3789236e978637399bb6be28
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzg5MjNkMTk3ODYzNzM5OWJiNmJlMjciLCJpYXQiOjE3MzcxOTI3ODEsImV4cCI6MTczNzE5NjM4MX0.YgIwFoAjAtA_LH1giajoSb5_bv25Dty1C06lqPQnICw
+content-type: application/json
+

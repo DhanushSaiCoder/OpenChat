@@ -7,6 +7,33 @@ const authenticateToken = require('../middleware/authenticateToken');
 
 const { Conversation, validateConversation } = require('../models/Conversation')
 
+// Get all conversations for the logged-in user
+router.get('/', authenticateToken, async (req, res) => {
+    try {
+      // Get the user ID from the authenticated token
+      const userId = req.user.userId;
+  
+      // Find all conversations where the user is a participant
+      const conversations = await Conversation.find({
+        participants: { $in: [userId] }
+      }).populate('participants', '_id name email'); // Optional: Populate participant details like name or email
+  
+      if (conversations.length === 0) {
+        return res.status(404).json({
+          message: 'No conversations found for this user',
+          short: 'noConversations'
+        });
+      }
+  
+      // Send the conversations as a response
+      res.status(200).json(conversations);
+    } catch (err) {
+      console.error(err); // Log the error for debugging purposes
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+  
+
 router.get('/:otherUser', authenticateToken, async (req, res) => {
     try {
         // Get both user IDs
@@ -24,7 +51,10 @@ router.get('/:otherUser', authenticateToken, async (req, res) => {
         });
 
         if (!conversation) {
-            return res.status(404).json({ message: 'No conversation found between these users' });
+            return res.status(404).json({ 
+                message: 'No conversation found between these users' ,
+                short: 'noConvFound'
+            });
         }
 
         // Send the response

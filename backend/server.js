@@ -10,6 +10,7 @@ app.use(express.json());
 app.use(cors());
 app.use('/auth',require('./routes/auth'))
 app.use('/conversation',require('./routes/conversations'))
+app.use('/message',require('./routes/messages'))
 
 
 // Connect to MongoDB
