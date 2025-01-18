@@ -19,13 +19,8 @@ router.get('/:otherUser', authenticateToken, async (req, res) => {
         { senderId: otherUserId, reciverId: userId }
       ]
     }).sort({ createdAt: 1 }); // Sort messages by creation time in ascending order
-
-    const messages=[]
-    for(i in messagesDocs){
-      messages.push(messagesDocs[i].message)
-    }
     // Send the messages as a response
-    res.status(200).json(messages);
+    res.status(200).json(messagesDocs);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error. Could not retrieve messages.' });
@@ -75,6 +70,67 @@ router.post('/:otherUser', authenticateToken, async (req, res) => {
 
 
 
-//delete a message
+// Delete a specific message
+router.delete('/:messageId', authenticateToken, async (req, res) => {
+  try {
+    const { messageId } = req.params; // Extract the message ID from the URL parameter
+    const { userId } = req.user; // Extract the user ID from the token
+
+    // Find the message by its ID
+    const message = await Message.findById(messageId);
+
+    if (!message) {
+      return res.status(404).json({ error: "Message not found" });
+    }
+
+    // Check if the user is the sender of the message
+    if (message.senderId.toString() !== userId) {
+      return res.status(403).json({ error: "You can only delete your own messages" });
+    }
+
+    // Delete the message
+    await message.remove();
+
+    res.status(200).json({ message: "Message deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting message:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Update a specific message
+router.patch('/:messageId', authenticateToken, async (req, res) => {
+  try {
+    const { messageId } = req.params; // Extract the message ID from the URL parameter
+    const { userId } = req.user; // Extract the user ID from the token
+    const { message } = req.body; // Extract the new message content from the request body
+
+    // Validate the new message content
+    if (!message || message.trim() === "") {
+      return res.status(400).json({ error: "Message content cannot be empty" });
+    }
+
+    // Find the message by its ID
+    const existingMessage = await Message.findById(messageId);
+
+    if (!existingMessage) {
+      return res.status(404).json({ error: "Message not found" });
+    }
+
+    // Check if the user is the sender of the message
+    if (existingMessage.senderId.toString() !== userId) {
+      return res.status(403).json({ error: "You can only edit your own messages" });
+    }
+
+    // Update the message content
+    existingMessage.message = message;
+    await existingMessage.save();
+
+    res.status(200).json({ message: "Message updated successfully", updatedMessage: existingMessage });
+  } catch (error) {
+    console.error("Error updating message:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 module.exports = router;
