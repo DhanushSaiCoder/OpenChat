@@ -10,6 +10,8 @@ const Layout = () => {
         </div>
         <ul className="navbar-links">
           <li><Link to="/">Home</Link></li>
+          <li><Link to="/auth/signup">Sign Up</Link></li>
+          <li><Link to="/auth/login">Log In</Link></li>
         </ul>
       </nav>
 

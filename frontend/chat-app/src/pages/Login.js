@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/Login.css';  // Import the CSS file
 import Layout from './../components/Layout';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   // State to hold input values
@@ -28,7 +29,6 @@ const Login = () => {
 
   return (
     <div className="container">
-      <Layout />
 
       <div className="card">
         <h2 className="heading">Login</h2>
@@ -58,6 +58,9 @@ const Login = () => {
               className="input"
             />
           </div>
+
+          <p id='already'>Do not have an account?</p><Link to='/auth/signup'>Sing Up</Link>
+
           <button type="submit" className="button">Login</button>
         </form>
       </div>

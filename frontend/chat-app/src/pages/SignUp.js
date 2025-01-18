@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/SignUp.css';  // Import the CSS file
+import { Link } from 'react-router-dom';
 
 const SignUp = () => {
   // State to hold input values
@@ -74,6 +75,9 @@ const SignUp = () => {
               className="input"
             />
           </div>
+          <p id='already'>Already have an account?</p><Link to='/auth/login'>Log in</Link>
+          
+
           <button type="submit" className="button">Sign Up</button>
         </form>
       </div>
