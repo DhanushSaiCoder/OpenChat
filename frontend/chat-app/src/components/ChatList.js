@@ -71,6 +71,10 @@ const ChatList = () => {
 
     if (users.length) console.log('users:    ', users);
 
+    const handleDisplayChanges = (a,userName) => {
+        console.log(a,userName)
+    }
+
     return (
         <div className='ChatList'>
             <div id='header'>
@@ -79,7 +83,7 @@ const ChatList = () => {
             </div>
             <div id='content'>
                 {users.map((user) => (
-                    <Conversation key={user.userId} userName={user.userName} userId={user.userId} lastMessage={user.lastMessage} />
+                    <Conversation displayMessages={handleDisplayChanges} key={user.userId} userName={user.userName} userId={user.userId} lastMessage={user.lastMessage} />
                 ))}
             </div>
         </div>
