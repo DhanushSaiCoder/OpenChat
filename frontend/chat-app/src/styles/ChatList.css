@@ -3,68 +3,94 @@
     margin: 0;
     box-sizing: border-box;
 }
+
 .ChatList {
-    width: 25%;
+    width: 100%;
+    max-width: 350px;
     height: 100%;
     background: rgb(34, 54, 72);
     border-radius: 20px;
     display: flex;
-    align-items: center;
-    justify-content: flex-start;
     flex-direction: column;
-    padding: 10px 10px;
-    overflow-y: scroll;
+    padding: 15px;
+    overflow-y: auto;
     overflow-x: hidden;
-    scrollbar-width: none;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(63, 101, 134, 0.5) transparent;
 }
+
+.ChatList::-webkit-scrollbar {
+    width: 8px;
+}
+
+.ChatList::-webkit-scrollbar-thumb {
+    background-color: rgba(63, 101, 134, 0.5);
+    border-radius: 10px;
+}
+
 #header {
     width: 100%;
     height: auto;
-    padding: 0 0;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    /* border: 1px solid rgba(255, 0, 0, 0.383); */
-    padding-bottom: 10px;
-    border-bottom: 1px solid  rgb(63, 101, 134);
-
+    border-bottom: 1px solid rgb(63, 101, 134);
     gap: 10px;
+    padding-bottom: 20px;
 }
 
 #header h2 {
     width: 100%;
+    font-size: 1.2rem;
+    color: #fff;
+    text-align: center;
 }
+
 #header input {
-    width: 75%;
+    width: 85%;
+    max-width: 320px;
     height: 40px;
-    border-radius: 5px;
+    border-radius: 10px;
     background: rgb(48, 77, 103);
     color: white;
-    border: 1px solid  rgb(63, 101, 134);
-    padding: 0 10px;
+    border: 1px solid rgb(63, 101, 134);
+    padding: 0 15px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
 }
+
 #header input::placeholder {
     color: aliceblue;
 }
-/* clears the ‘X’ from Internet Explorer */
+
+#header input:focus {
+    outline: none;
+    background-color: rgb(63, 101, 134);
+}
+
+/* Clears the ‘X’ from Internet Explorer */
 input[type="search"]::-ms-clear {
     display: none;
     width: 0;
     height: 0;
 }
+
 input[type="search"]::-ms-reveal {
     display: none;
     width: 0;
     height: 0;
 }
-/* clears the ‘X’ from Chrome */
+
+/* Clears the ‘X’ from Chrome */
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration {
     display: none;
 }
-#content{
+
+#content {
     width: 100%;
 }
