@@ -69,8 +69,8 @@ const ChatList = ({displayChatBox}) => {
     }, [userId]);
 
 
-    const handleDisplayMessages = (data,userName) => {
-        displayChatBox(data,userName)
+    const handleDisplayMessages = (data,userName,userId) => {
+        displayChatBox(data,userName,userId)
     }
 
     return (

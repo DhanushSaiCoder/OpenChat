@@ -60,7 +60,7 @@ const Conversation = (props) => {
     }, [messagesData]);
 
     useEffect(() => {
-        if (messages.length) displayMessages(messages,userName)
+        if (messages.length) displayMessages(messages,userName,userId)
     }, [messages])
 
     return (

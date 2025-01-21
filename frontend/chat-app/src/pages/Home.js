@@ -10,6 +10,7 @@ const Home = () => {
 
   const [messageData, setMessageData] = useState([])
   const [username, setUserName] = useState('')
+  const [userId, setUserId] = useState('')
 
   useEffect(() => {
     // Check if token exists in localStorage
@@ -18,9 +19,10 @@ const Home = () => {
     }
   }, [navigate]);
 
-  const displayChatBox = (data, userName) => {
+  const displayChatBox = (data, userName,userId) => {
     setMessageData(data)
     setUserName(userName)
+    setUserId(userId)
   }
 
   return (
@@ -30,7 +32,7 @@ const Home = () => {
           <Layout />
           <div id="home-content">
             <ChatList displayChatBox={displayChatBox} />
-            <ChatBox messageData={messageData} userName={username} />
+            <ChatBox messageData={messageData} userName={username} userId={userId}/>
           </div>
         </div>
       </div>
