@@ -1,12 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
+import '../styles/Conversation.css'
+import defaultProfile from '../profiles/defaultProfile.jpg';
+
 
 const Conversation = (props) => {
 
-    const {userName , userId} = props
+    const {userName , userId , lastMessage} = props
     return (
-        <p>
-            {userName} - {userId}
-        </p>
+        <div className='conversation'>
+            <img className='profilePic' src={defaultProfile} alt="profile" />
+            <div className='userDetailsDiv'>
+                <h4>{userName}</h4>
+                <p className='lastMessage'>{lastMessage}</p>
+            </div>
+        </div>
     );
 }
 

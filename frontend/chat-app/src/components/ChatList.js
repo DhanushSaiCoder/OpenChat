@@ -7,6 +7,7 @@ const ChatList = () => {
     const [userId, setUserId] = useState('');
     const [users, setUsers] = useState([]);  // users should be an array
 
+    //gts user data
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
@@ -29,6 +30,7 @@ const ChatList = () => {
         }
     }, []);
 
+    // get users of conversations
     useEffect(() => {
         if (userId !== '') {
             const token = localStorage.getItem('token');
@@ -41,17 +43,21 @@ const ChatList = () => {
             })
                 .then((response) => response.json())
                 .then((data) => {
+                    console.log("conversation data: ", data)
                     let userList = [];
                     data.forEach(element => {
                         if (element.participants[0]._id === userId) {
                             userList.push({
                                 userName: element.participants[1].username,
-                                userId: element.participants[1]._id
+                                userId: element.participants[1]._id,
+                                lastMessage: element.lastMessage.content
                             });
                         } else {
                             userList.push({
                                 userName: element.participants[0].username,
-                                userId: element.participants[0]._id
+                                userId: element.participants[0]._id,
+                                lastMessage: element.lastMessage.content
+
                             });
                         }
                     });
@@ -73,7 +79,7 @@ const ChatList = () => {
             </div>
             <div id='content'>
                 {users.map((user) => (
-                    <Conversation key={user.userId} userName={user.userName} userId={user.userId} />
+                    <Conversation key={user.userId} userName={user.userName} userId={user.userId} lastMessage={user.lastMessage} />
                 ))}
             </div>
         </div>
