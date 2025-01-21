@@ -24,4 +24,8 @@
     opacity: 0.675;
     font-size: small;
     padding-left: 1px;
+}.userDetailsDiv {
+    white-space: nowrap; /* Prevent text wrapping */
+    overflow: hidden; /* Hide overflowing text */
+    text-overflow: ellipsis; /* Show "..." for truncated text */
 }

@@ -11,6 +11,7 @@ const Conversation = (props) => {
     const [messagesData, setMessagesData] = useState([]);
     const [messages, setMessages] = useState([]);
 
+    var trimmedLastMessage;
     const openConversation = () => {
         if (!token) {
             console.error("Token is missing");
@@ -62,7 +63,8 @@ const Conversation = (props) => {
     useEffect(() => {
         if (messages.length) displayMessages(messages,userName,userId)
     }, [messages])
-
+    if(lastMessage)
+        trimmedLastMessage = lastMessage.slice(0,17) + '...'
     return (
         <div onClick={openConversation} className='conversation'>
             <img className='profilePic' src={defaultProfile} alt="profile" />
