@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../styles/ChatList.css';
 import Conversation from './Conversation';
 
-const ChatList = () => {
+const ChatList = ({displayChatBox}) => {
     const baseURL = 'http://localhost:5000';
     const [userId, setUserId] = useState('');
     const [users, setUsers] = useState([]);  // users should be an array
@@ -71,8 +71,8 @@ const ChatList = () => {
 
     if (users.length) console.log('users:    ', users);
 
-    const handleDisplayChanges = (a,userName) => {
-        console.log(a,userName)
+    const handleDisplayMessages = (data,userName) => {
+        displayChatBox(data,userName)
     }
 
     return (
@@ -83,7 +83,7 @@ const ChatList = () => {
             </div>
             <div id='content'>
                 {users.map((user) => (
-                    <Conversation displayMessages={handleDisplayChanges} key={user.userId} userName={user.userName} userId={user.userId} lastMessage={user.lastMessage} />
+                    <Conversation displayMessages={handleDisplayMessages} key={user.userId} userName={user.userName} userId={user.userId} lastMessage={user.lastMessage} />
                 ))}
             </div>
         </div>
