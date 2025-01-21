@@ -43,7 +43,6 @@ const ChatList = ({displayChatBox}) => {
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log("conversation data: ", data)
                     let userList = [];
                     data.forEach(element => {
                         if (element.participants[0]._id === userId) {
@@ -69,7 +68,6 @@ const ChatList = ({displayChatBox}) => {
         }
     }, [userId]);
 
-    if (users.length) console.log('users:    ', users);
 
     const handleDisplayMessages = (data,userName) => {
         displayChatBox(data,userName)
