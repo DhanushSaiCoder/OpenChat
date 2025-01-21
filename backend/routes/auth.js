@@ -3,6 +3,17 @@ const bcrypt = require("bcrypt"); // Import bcrypt for hashing and comparing pas
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const router = express.Router();
+const authenticateToken = require('../middleware/authenticateToken')
+
+//get user id
+router.get('', authenticateToken, async (req, res) => {
+  if (!req.user) {
+      return res.status(401).send('Unauthorized: No valid token provided');
+  }
+  
+  res.send({ userId: req.user.userId });
+});
+
 
 // Serve the signup page
 router.get('/signup', (req, res) => {
@@ -47,7 +58,6 @@ router.post("/signup", async (req, res) => {
     res.status(500).send(err.message);
   }
 });
-
 
 // Login Route - Compare the entered password with the hashed password
 router.post("/login", async (req, res) => {

@@ -3,7 +3,7 @@ const router = express.Router()
 const mongoose = require('mongoose')
 const authenticateToken = require('../middleware/authenticateToken')
 
-const {Conversation} = require('../models/Conversation')
+const { Conversation } = require('../models/Conversation')
 const { Message, validateMessage } = require('../models/Message')
 
 // Get all messages between the current user and the other user
@@ -30,41 +30,56 @@ router.get('/:otherUser', authenticateToken, async (req, res) => {
 
 // POST a message
 router.post('/:otherUser', authenticateToken, async (req, res) => {
-    try {
-        const { userId } = req.user; // Extract userId from the token
-        const otherUserId = req.params.otherUser;
-        const { message } = req.body; // Assuming the message text is passed in the request body
+  try {
+    const { userId } = req.user; // Extract userId from the token
+    const otherUserId = req.params.otherUser;
+    const { message } = req.body; // Assuming the message text is passed in the request body
 
-        // Step 1: Check if a conversation already exists between the two users
-        let conversation = await Conversation.findOne({
-            participants: { $all: [userId, otherUserId] }
-        });
-
-        // Step 2: If no conversation exists, create a new one
-        if (!conversation) {
-            conversation = new Conversation({
-                participants: [userId, otherUserId],
-                
-            });
-            await conversation.save();
-        }
-
-        // Step 3: Create a new message
-        const newMessage = new Message({
-            conversationId: conversation._id,
-            senderId: userId,
-            reciverId: otherUserId,
-            message: message,
-            
-        });
-        await newMessage.save();
-
-        // Step 4: Return the new message as a response
-        res.status(201).json(newMessage);
-    } catch (error) {
-        console.error("Error posting message:", error);
-        res.status(500).json({ error: "Internal server error" });
+    // Validate the message content
+    if (!message || typeof message !== 'string') {
+      return res.status(400).json({ error: "Message content is required and must be a string." });
     }
+
+    // Step 1: Check if a conversation already exists between the two users
+    let conversation = await Conversation.findOne({
+      participants: { $all: [userId, otherUserId] },
+    });
+
+    // Step 2: If no conversation exists, create a new one
+    if (!conversation) {
+      conversation = new Conversation({
+        participants: [userId, otherUserId],
+        lastMessage: {}, // Initialize lastMessage as an empty object
+      });
+      await conversation.save();
+    }
+
+    // Step 3: Create a new message
+    const newMessage = new Message({
+      conversationId: conversation._id,
+      senderId: userId,
+      reciverId: otherUserId,
+      message: message,
+    });
+     
+    validateMessage(newMessage)
+    // Step 3.5: Update the lastMessage field in the conversation
+    conversation.lastMessage = {
+      senderId: userId,
+      content: newMessage.message,
+      createdAt: new Date()
+    };
+
+    // Save the updated conversation and the new message
+    await conversation.save();
+    await newMessage.save();
+
+    // Step 4: Return the new message as a response
+    res.status(201).json(newMessage);
+  } catch (error) {
+    console.error("Error posting message:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 
