@@ -38,7 +38,7 @@
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 7px;
     padding: 20px;
     background: rgba(0, 0, 0, 0.1);
     scrollbar-width: thin;
