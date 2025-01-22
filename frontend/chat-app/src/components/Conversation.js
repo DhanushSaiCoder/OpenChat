@@ -11,7 +11,7 @@ const Conversation = (props) => {
     const [messagesData, setMessagesData] = useState([]);
     const [messages, setMessages] = useState([]);
 
-    var trimmedLastMessage;
+    var conversationId;
     const openConversation = () => {
         if (!token) {
             console.error("Token is missing");
@@ -32,6 +32,7 @@ const Conversation = (props) => {
             })
             .then((data) => {
                 console.log('messages: ', data);
+                conversationId = data[0].conversationId;
                 setMessagesData(data);
             })
             .catch((error) => {
@@ -61,7 +62,7 @@ const Conversation = (props) => {
     }, [messagesData]);
 
     useEffect(() => {
-        if (messages.length) displayMessages(messages,userName,userId)
+        if (messages.length) displayMessages(messages,userName,userId,conversationId)
     }, [messages])
     if(lastMessage)
         trimmedLastMessage = lastMessage.slice(0,17) + '...'

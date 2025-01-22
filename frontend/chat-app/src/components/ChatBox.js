@@ -1,10 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import '../styles/ChatBox.css';
 
-const ChatBox = ({ messageData, userName, userId }) => {
+const ChatBox = ({ messageData, userName, userId,conversationId }) => {
     const [message, setMessage] = useState('');
     const [isSending, setIsSending] = useState(false);
     const chatBoxContentRef = useRef(null); // Reference for chat content
+    const token = localStorage.getItem('token');
+    
+
+    
 
     // Automatically scroll to the bottom on component load or when messageData changes
     useEffect(() => {
@@ -21,7 +25,6 @@ const ChatBox = ({ messageData, userName, userId }) => {
     // Handle message send
     const handleSendMessage = async () => {
         if (!message.trim()) return; // Don't send empty messages
-        const token = localStorage.getItem('token');
         setIsSending(true); // Start the sending process
         try {
             const response = await fetch(`/message/${userId}`, {

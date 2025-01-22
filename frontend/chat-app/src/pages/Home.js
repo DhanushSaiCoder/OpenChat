@@ -18,12 +18,14 @@ const Home = () => {
       navigate('/auth/login'); // Redirect to login page if no token
     }
   }, [navigate]);
-
-  const displayChatBox = (data, userName,userId) => {
+  var conversationId;
+  const displayChatBox = (data, userName,userId,conversationId) => {
+    conversationId = conversationId;
     setMessageData(data)
     setUserName(userName)
     setUserId(userId)
   }
+
 
   return (
     <div className='container'>
@@ -32,7 +34,7 @@ const Home = () => {
           <Layout />
           <div id="home-content">
             <ChatList displayChatBox={displayChatBox} />
-            <ChatBox messageData={messageData} userName={username} userId={userId}/>
+            <ChatBox messageData={messageData} userName={username} userId={userId} conversationId={conversationId}/>
           </div>
         </div>
       </div>
