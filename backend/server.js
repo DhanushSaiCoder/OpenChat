@@ -3,58 +3,56 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 dotenv.config();
-const app = express();
 
+const app = express();
 const http = require('http');
 const socketIo = require('socket.io');
 
+// Create HTTP server
 const server = http.createServer(app);
-const io = socketIo(server);
+
+// Initialize Socket.IO
+const io = socketIo(server, {
+    cors: {
+        origin: '*', // Allow all origins (adjust this for production security)
+        methods: ['GET', 'POST'],
+    },
+});
 
 // Middleware
 app.use(express.json());
 app.use(cors());
-app.use('/auth', require('./routes/auth'))
-app.use('/conversation', require('./routes/conversations'))
-app.use('/message', require('./routes/messages'))
-
+app.use('/auth', require('./routes/auth'));
+app.use('/conversation', require('./routes/conversations'));
+app.use('/message', require('./routes/messages'));
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
-   .then(() => console.log('MongoDB connected'))
-   .catch(err => console.log(err));
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+    .then(() => console.log('MongoDB connected'))
+    .catch(err => console.log('MongoDB connection error:', err));
 
-//socket.io
+// Socket.IO event handling
 io.on('connection', (socket) => {
-   console.log('A user connected:', socket.id);
+    console.log('A user connected:', socket.id);
 
-   // Listen for a user to join a specific room
-   socket.on('joinRoom', ({ username, conversationId }) => {
-      socket.join(conversationId); // Join the specified room
-      console.log(`${username} joined room: ${conversationId}`);
+    // Handle "newMsg" event
+    socket.on('newMsg', ({ message, conversationId }) => {
+        console.log('New message:', message, 'Conversation ID:', conversationId);
+        io.emit('checkMsgs', { conversationId });
+    });
 
-      // Notify other users in the room
-      socket.to(conversationId).emit('userJoined', { username, conversationId });
-   });
-
-   // Listen for messages from clients in a specific room
-   socket.on('sendMessage', ({ username, messageData, conversationId }) => {
-      console.log(`Message from ${username} in room ${conversationId}:`, messageData);
-
-      // Broadcast the message to the specific room (excluding the sender)
-      socket.to(conversationId).emit('receiveMessage', { username, messageData });
-   });
-
-   // Notify other users in the room when a user disconnects
-   socket.on('disconnect', () => {
-      console.log(`User disconnected: ${socket.id}`);
-   });
+    // Handle user disconnect
+    socket.on('disconnect', () => {
+        console.log(`User disconnected: ${socket.id}`);
+    });
 });
-
 
 // Sample Route
 app.get('/', (req, res) => res.send('API is running...'));
 
-// Start Server
+// Start the server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));

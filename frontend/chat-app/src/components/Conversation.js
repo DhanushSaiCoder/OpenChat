@@ -11,12 +11,14 @@ const Conversation = (props) => {
     const [messagesData, setMessagesData] = useState([]);
     const [messages, setMessages] = useState([]);
 
+    var trimmedLastMessage;
     var conversationId;
     const openConversation = () => {
         if (!token) {
             console.error("Token is missing");
             return;
         }
+        //get messages and format them;
 
         fetch(`${baseURL}/message/${userId}`, {
             method: 'GET',
