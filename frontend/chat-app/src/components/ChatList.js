@@ -84,7 +84,7 @@ const ChatList = ({displayChatBox}) => {
                 </div>
                 <input id="searchInp" type='search' placeholder='Search...' />
             </div>
-            <div id='content'>
+            <div id='chatListContent'>
                 {users.map((user) => (
                     <Conversation displayMessages={handleDisplayMessages} key={user.userId} userName={user.userName} userId={user.userId} lastMessage={user.lastMessage} />
                 ))}

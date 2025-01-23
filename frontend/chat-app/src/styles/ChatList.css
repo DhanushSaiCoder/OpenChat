@@ -92,7 +92,7 @@ input[type="search"]::-webkit-search-results-decoration {
     display: none;
 }
 
-#content {
+#chatListContent {
     width: 100%;
 }
 #iconDiv{
