@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
 * {
     padding: 0;
@@ -142,4 +142,51 @@
 #sendButton:hover {
     background: linear-gradient(135deg, rgb(50, 140, 255), rgb(140, 50, 255));
     transform: scale(1.05);
+}
+
+#sendButton {
+    border-radius: 10px;
+    /* background: rgb(255, 255, 255); */
+    /* color: rgb(0, 9, 18); */
+    background-size: 200% 200%; /* Set background size for animation */
+    transition: all 0.5s ease;
+    background: linear-gradient(135deg, rgb(39, 125, 255), rgb(122, 39, 255));
+    background-size: 200% 200%; /* Ensure the gradient size is animated */
+    background-position: 100% 0; /* Initial position of the gradient */
+    color: rgb(219, 237, 255);
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(39, 165, 255, 0.8),
+        0 0 40px rgba(133, 39, 255, 0.6);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    animation: gradientMove 3s infinite, pulse 1.5s infinite;
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 20px rgba(39, 125, 255, 0.8),
+            0 0 40px rgba(122, 39, 255, 0.6);
+        transform: scale(0.8);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(39, 125, 255, 1),
+            0 0 60px rgba(122, 39, 255, 0.8);
+        transform: scale(1.1);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(39, 125, 255, 0.8),
+            0 0 40px rgba(122, 39, 255, 0.6);
+        transform: scale(0.8);
+    }
 }
