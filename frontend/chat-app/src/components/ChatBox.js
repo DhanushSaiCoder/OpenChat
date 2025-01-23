@@ -5,6 +5,7 @@ import io from 'socket.io-client';
 const socket = io(process.env.REACT_APP_SOCKET_URL || 'http://localhost:5000');
 
 const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationId }) => {
+    console.clear()
     const [messages, setMessages] = useState(messageData);
     const [message, setMessage] = useState('');
     const [isSending, setIsSending] = useState(false);
@@ -20,7 +21,7 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
             const response = await fetch(`http://localhost:5000/message/${userId}`, {
                 method: 'GET',
                 headers: { 'Authorization': `Bearer ${token}` },
-            });``
+            });
 
             if (response.ok) {
                 const data = await response.json();
