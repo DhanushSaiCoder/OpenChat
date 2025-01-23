@@ -76,7 +76,7 @@ const ChatList = ({displayChatBox}) => {
     return (
         <div className='ChatList'>
             <div id='header'>
-                <h2>Users</h2>
+                <h2>Friends</h2>
                 <div onClick={() =>{
                     window.location.href = '/addConversation'
                 }} id='iconDiv'>
@@ -88,6 +88,9 @@ const ChatList = ({displayChatBox}) => {
                 {users.map((user) => (
                     <Conversation displayMessages={handleDisplayMessages} key={user.userId} userName={user.userName} userId={user.userId} lastMessage={user.lastMessage} />
                 ))}
+                <p onClick={() => {
+                    window.location.href= '/addConversation'
+                }} className='addConv' >+ Add Friend</p>
             </div>
         </div>
     );

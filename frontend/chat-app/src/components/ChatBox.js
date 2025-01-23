@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import '../styles/ChatBox.css';
 import io from 'socket.io-client';
+import defaultProfile from '../profiles/defaultProfile.jpg';
+
 
 const socket = io(process.env.REACT_APP_SOCKET_URL || 'http://localhost:5000');
 
@@ -9,11 +11,11 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
     const [messages, setMessages] = useState(messageData);
     const [message, setMessage] = useState('');
     const [isSending, setIsSending] = useState(false);
-    
+
     const chatBoxContentRef = useRef(null);
     const token = localStorage.getItem('token');
 
-    console.log("messageData: ", messages , "conversationId", conversationId)
+    console.log("messageData: ", messages, "conversationId", conversationId)
 
     // Fetch messages callback
     const fetchMessages = useCallback(async () => {
@@ -47,7 +49,7 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
         const messageListener = (convId) => {
 
             if (convId === conversationId) {
-                fetchMessages();   
+                fetchMessages();
             }
         };
         socket.on('checkMsgs', messageListener);
@@ -125,6 +127,8 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
             {messages.length > 0 && userName && (
                 <>
                     <div id="chatBoxHeader">
+                        <img className='profImg' src={defaultProfile} alt="profile" />
+
                         <h2>{userName}</h2>
                     </div>
                     <div id="chatBoxContent" ref={chatBoxContentRef}>
@@ -148,6 +152,7 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
             {!messages.length && userName && (
                 <>
                     <div id="chatBoxHeader">
+                        <img className='profImg' src={defaultProfile} alt="profile" />
                         <h2>{userName}</h2>
                     </div>
                     <div id="chatBoxContent" ref={chatBoxContentRef}>

@@ -11,12 +11,15 @@
     background: rgb(34, 54, 72);
     border-radius: 20px;
     display: flex;
+    align-items: center;
+    justify-content: flex-start;
     flex-direction: column;
     padding: 15px;
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: thin;
     scrollbar-color: rgba(63, 101, 134, 0.5) transparent;
+
 }
 
 .ChatList::-webkit-scrollbar {
@@ -111,4 +114,18 @@ input[type="search"]::-webkit-search-results-decoration {
 #iconDiv:hover{
     background-color: #ffffff1d;
 
+}
+.addConv{
+    text-decoration: none;
+    color:rgba(64, 194, 255, 0.748);
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: smaller;
+    text-align: center;
+    margin: 25px;
+    transition: all 0.25s ease;
+   
+}
+.addConv:hover{
+    color: skyblue;
 }
