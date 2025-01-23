@@ -205,3 +205,8 @@ input[type="search"]::-ms-reveal {
         box-shadow: 0 0 20px rgba(39, 125, 255, 0.8), 0 0 40px rgba(122, 39, 255, 0.6);
     }
 }
+.usersOver{
+    text-align: center;
+    opacity: 0.75;
+    margin-top: 35%;
+}

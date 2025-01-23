@@ -109,6 +109,10 @@ const NewConv = () => {
                             </div>
                         ))
                     )}
+                    {!friends.length && (
+                        <p class='usersOver'>You are a friend of all users.<br />Waiting for a new user to sign up</p>
+
+                    )}
                 </div>
                 <div id='footer'>
                     <button onClick={() => {
