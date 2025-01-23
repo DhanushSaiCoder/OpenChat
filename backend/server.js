@@ -55,7 +55,7 @@ io.on('connection', (socket) => {
         // Set up a new interval for emitting `checkMsgs`
         const intervalId = setInterval(() => {
             io.emit('checkMsgs', conversationId);
-        }, 4000);
+        }, 20000);
 
         // Store the intervalId
         activeIntervals.set(conversationId, intervalId);
