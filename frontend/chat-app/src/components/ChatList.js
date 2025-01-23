@@ -71,7 +71,6 @@ const ChatList = ({displayChatBox}) => {
 
 
     const handleDisplayMessages = (data,userName,userId,conversationId) => {
-
         displayChatBox(data,userName,userId,conversationId)
     }
 

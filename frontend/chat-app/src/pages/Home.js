@@ -11,6 +11,7 @@ const Home = () => {
   const [messageData, setMessageData] = useState([])
   const [username, setUserName] = useState('')
   const [userId, setUserId] = useState('')
+  const [conversationId, setConversationId ] = useState('')
 
   useEffect(() => {
     // Check if token exists in localStorage
@@ -18,9 +19,8 @@ const Home = () => {
       navigate('/auth/login'); // Redirect to login page if no token
     }
   }, [navigate]);
-  var conversationId;
   const displayChatBox = (data, userName,userId,conversationId) => {
-    conversationId = conversationId;
+    setConversationId(conversationId)
     setMessageData(data)
     setUserName(userName)
     setUserId(userId)

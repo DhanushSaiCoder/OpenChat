@@ -8,6 +8,7 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
     const [messages, setMessages] = useState(messageData);
     const [message, setMessage] = useState('');
     const [isSending, setIsSending] = useState(false);
+    
     const chatBoxContentRef = useRef(null);
     const token = localStorage.getItem('token');
 
