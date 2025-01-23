@@ -15,10 +15,12 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
     // Fetch messages callback
     const fetchMessages = useCallback(async () => {
         try {
+            console.log('fetching messages')
+
             const response = await fetch(`http://localhost:5000/message/${userId}`, {
                 method: 'GET',
                 headers: { 'Authorization': `Bearer ${token}` },
-            });
+            });``
 
             if (response.ok) {
                 const data = await response.json();
@@ -40,7 +42,10 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
         fetchMessages();
 
         const messageListener = (convId) => {
-            if (convId === conversationId) fetchMessages();
+
+            if (convId === conversationId) {
+                fetchMessages();   
+            }
         };
         socket.on('checkMsgs', messageListener);
 

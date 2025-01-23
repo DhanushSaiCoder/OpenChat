@@ -41,7 +41,7 @@ io.on('connection', (socket) => {
     // Handle "newMsg" event
     socket.on('newMsg', ({ message, conversationId }) => {
         console.log('New message:', message, 'Conversation ID:', conversationId);
-        io.emit('checkMsgs', { conversationId });
+        io.emit('checkMsgs', conversationId);
     });
 
     // Handle user disconnect
