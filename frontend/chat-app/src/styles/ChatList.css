@@ -37,8 +37,9 @@
     justify-content: center;
     flex-direction: column;
     border-bottom: 1px solid rgb(63, 101, 134);
-    gap: 10px;
+    gap: 20px;
     padding-bottom: 20px;
+    position: relative;
 }
 
 #header h2 {
@@ -93,4 +94,21 @@ input[type="search"]::-webkit-search-results-decoration {
 
 #content {
     width: 100%;
+}
+#iconDiv{
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    padding: 0;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#iconDiv:hover{
+    background-color: #ffffff1d;
+
 }

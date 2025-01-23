@@ -5,12 +5,20 @@ const User = require("../models/User");
 const router = express.Router();
 const authenticateToken = require('../middleware/authenticateToken')
 
+//get user doc
+router.get('/userDoc', authenticateToken, async (req, res) => {
+  if (!req.user) {
+    return res.status(401).send('Unauthorized: No valid token provided');
+  }
+  res.send(req.user)
+})
+
 //get user id
 router.get('', authenticateToken, async (req, res) => {
   if (!req.user) {
-      return res.status(401).send('Unauthorized: No valid token provided');
+    return res.status(401).send('Unauthorized: No valid token provided');
   }
-  
+
   res.send({ userId: req.user.userId });
 });
 

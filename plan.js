@@ -1,8 +1,9 @@
-//SETUP SOCKET
+//POST CONV
 
-    do// get the conversationId with two user ids
-
-    do//when a message is created - raises an event [newMsg] with message, conversationId
-    //when server listens [newMsg] - it broadcasts to all users incl curr user an event [checkMsgs]
-
-    //when clients listens [checkMsgs] - fetches the messages again from the database
+    //when chat list is rendered, if no conversations: "You have no contactcs , Add a new Contact: li"
+    //when user clicks on it - user is to /addContact 
+        //here all the registered users are displayed in a list with a add simbol behind 'em
+        //when user click on it - a new post request is sent to /conversations
+    //user is redirected to /    
+    
+    

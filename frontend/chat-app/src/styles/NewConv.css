@@ -1,0 +1,123 @@
+.newConvContainer {
+    background: rgba(21, 33, 44, 0.99);
+
+    width: 100vw;
+    height: 100vh;
+    color: #f4f5ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+#newConv {
+    width: 30%;
+    min-width: 400px;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    border-radius: 20px;
+    background: rgb(34, 54, 72);
+    border: 1px solid rgb(63, 101, 134);
+
+}
+#newConvHeader{
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid rgb(63, 101, 134);
+    padding: 15px 0;
+}
+#headingDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+
+    
+}
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+    display: none;
+}
+input[type="search"]::-ms-reveal {
+    display: none;
+    width: 0;
+    height: 0;
+}
+#newConvSearchInp{
+    width: 85%;
+    max-width: 320px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgb(48, 77, 103);
+    color: white;
+    border: 1px solid rgb(63, 101, 134);
+    padding: 0 15px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+#newConvSearchInp::placeholder {
+    color: aliceblue;
+}
+
+#newConvSearchInp:focus {
+    outline: none;
+    background-color: rgb(63, 101, 134);
+}
+#searchDiv{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 5px 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#content{
+    width: 100%;
+    height: 80%;
+    background: rgba(0, 0, 0, 0.328);
+    overflow-y: scroll;
+
+
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(63, 101, 134, 0.5) transparent;
+
+    position: relative;
+}
+
+#footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10%;
+}
+
+#doneBtn {
+    width: 170px;
+    padding: 10px 15px;
+    margin-left: 10px;
+    background: linear-gradient(135deg, rgb(39, 125, 255), rgb(122, 39, 255));
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+#doneBtn:hover {
+    background: linear-gradient(135deg, rgb(50, 140, 255), rgb(140, 50, 255));
+    transform: scale(1.05);
+}

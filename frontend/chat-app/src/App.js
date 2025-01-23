@@ -4,7 +4,7 @@ import Home from './pages/Home';
 import Layout from './components/Layout';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
-
+import NewConv from './components/NewConv';
 function App() {
   const baseUrl = 'http://localhost:5000'
   const [data, setData] = useState('');
@@ -24,6 +24,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path='/auth/login' element={<Login />} />
           <Route path='/auth/signup' element={<SignUp />} />
+          <Route path='/addConversation' element={<NewConv />} />
       </Routes>
     </BrowserRouter>
   );

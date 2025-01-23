@@ -25,6 +25,7 @@ app.use(cors());
 app.use('/auth', require('./routes/auth'));
 app.use('/conversation', require('./routes/conversations'));
 app.use('/message', require('./routes/messages'));
+app.use('/users', require('./routes/users'));
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
@@ -55,7 +56,7 @@ io.on('connection', (socket) => {
         // Set up a new interval for emitting `checkMsgs`
         const intervalId = setInterval(() => {
             io.emit('checkMsgs', conversationId);
-        }, 4000);
+        }, 20000);
 
         // Store the intervalId
         activeIntervals.set(conversationId, intervalId);
