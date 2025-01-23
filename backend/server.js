@@ -35,20 +35,41 @@ mongoose.connect(process.env.MONGO_URI, {
     .catch(err => console.log('MongoDB connection error:', err));
 
 // Socket.IO event handling
+const activeIntervals = new Map(); // Track intervals for each conversationId
+
 io.on('connection', (socket) => {
     console.log('A user connected:', socket.id);
 
     // Handle "newMsg" event
     socket.on('newMsg', ({ message, conversationId }) => {
         console.log('New message:', message, 'Conversation ID:', conversationId);
+        
+        // Emit event immediately
         io.emit('checkMsgs', conversationId);
+
+        // Clear any existing interval for the same conversationId
+        if (activeIntervals.has(conversationId)) {
+            clearInterval(activeIntervals.get(conversationId));
+        }
+
+        // Set up a new interval for emitting `checkMsgs`
+        const intervalId = setInterval(() => {
+            io.emit('checkMsgs', conversationId);
+        }, 4000);
+
+        // Store the intervalId
+        activeIntervals.set(conversationId, intervalId);
     });
 
     // Handle user disconnect
     socket.on('disconnect', () => {
         console.log(`User disconnected: ${socket.id}`);
+        // Optional: Clear intervals related to the user if needed
     });
+
+   
 });
+
 
 // Sample Route
 app.get('/', (req, res) => res.send('API is running...'));
