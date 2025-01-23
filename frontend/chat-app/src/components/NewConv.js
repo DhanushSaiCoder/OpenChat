@@ -54,7 +54,10 @@ const NewConv = () => {
                                 <div className='userDetailsDiv'>
                                     <h4>{user.username}</h4>
                                     <p className='mails'>{user.email}</p>
+
                                 </div>
+                                <div className='addFriendDiv'><b>Add</b></div>
+
                             </div>
                         ))
                     )}
