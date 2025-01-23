@@ -74,4 +74,3 @@ content-type: application/json
 GET  http://localhost:5000/users/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzhiOWM3MDg3MGViOGNhMzllMmViOWQiLCJpYXQiOjE3Mzc2MzcyOTcsImV4cCI6MTczNzY0MDg5N30.hD7lmAiogGQhgv8z2dsiNHH_4tJWB9Z9Wmi_kqA0Z7g
 content-type: application/json
-
