@@ -6,7 +6,7 @@ const User = require('../models/User')
 
 // Get all users 
 router.get('', authenticateToken, async (req, res) => {
-  try {
+try {
     const users = await User.find(); // Get all users
     const userId = req.user.userId; // Current user's ID
     const user = await User.findById(userId); // Current user document

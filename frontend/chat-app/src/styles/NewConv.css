@@ -49,8 +49,8 @@ input[type="search"]::-ms-reveal {
     height: 0;
 }
 #newConvSearchInp{
-    width: 85%;
-    max-width: 320px;
+    width: 90%;
+    /* max-width: 320px; */
     height: 40px;
     border-radius: 10px;
     background: rgb(48, 77, 103);
@@ -59,6 +59,7 @@ input[type="search"]::-ms-reveal {
     padding: 0 15px;
     font-size: 1rem;
     transition: background-color 0.3s ease;
+
 }
 #newConvSearchInp::placeholder {
     color: aliceblue;
@@ -72,8 +73,8 @@ input[type="search"]::-ms-reveal {
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    padding: 5px 10px;
+    justify-content: center;
+    padding: 10px 10px;
     position: absolute;
     top: 0;
     left: 0;
@@ -120,4 +121,43 @@ input[type="search"]::-ms-reveal {
 #doneBtn:hover {
     background: linear-gradient(135deg, rgb(50, 140, 255), rgb(140, 50, 255));
     transform: scale(1.05);
+}
+
+.conversation{
+    width: 100%;
+    height: 70px;
+    padding: 5px 10px;
+    border-bottom: 1px solid  rgb(63, 101, 134);
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    flex-wrap: nowrap;
+    
+    cursor: pointer;
+}
+
+.conversation:hover{
+    background-color: rgba(0, 0, 0, 0.066);
+}
+
+.profilePic{
+    width: 45px;
+    height: 45px;
+    border-radius: 22.5px;
+}
+
+.lastMessage{
+    opacity: 0.675;
+    font-size: small;
+    padding-left: 1px;
+}.userDetailsDiv {
+    white-space: nowrap; /* Prevent text wrapping */
+    overflow: hidden; /* Hide overflowing text */
+    text-overflow: ellipsis; /* Show "..." for truncated text */
+}
+
+.mails{
+    opacity: 0.575;
 }
