@@ -1,30 +1,78 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import '../styles/ChatBox.css';
+import io from 'socket.io-client';
 
-const ChatBox = ({ messageData, userName, userId }) => {
+const socket = io(process.env.REACT_APP_SOCKET_URL || 'http://localhost:5000');
+
+const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationId }) => {
+    console.clear()
+    const [messages, setMessages] = useState(messageData);
     const [message, setMessage] = useState('');
     const [isSending, setIsSending] = useState(false);
-    const chatBoxContentRef = useRef(null); // Reference for chat content
+    
+    const chatBoxContentRef = useRef(null);
+    const token = localStorage.getItem('token');
 
-    // Automatically scroll to the bottom on component load or when messageData changes
+    // Fetch messages callback
+    const fetchMessages = useCallback(async () => {
+        try {
+            console.log('fetching messages')
+
+            const response = await fetch(`http://localhost:5000/message/${userId}`, {
+                method: 'GET',
+                headers: { 'Authorization': `Bearer ${token}` },
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const formattedMessages = data.map((msg) => ({
+                    message: msg.message,
+                    sender: msg.reciverId === userId ? 'user' : 'otherUser',
+                }));
+                setMessages(formattedMessages);
+            } else {
+                console.error('Error fetching messages:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error fetching messages:', error);
+        }
+    }, [userId, token]);
+
+    // Listen for new messages and fetch them
+    useEffect(() => {
+        fetchMessages();
+
+        const messageListener = (convId) => {
+
+            if (convId === conversationId) {
+                fetchMessages();   
+            }
+        };
+        socket.on('checkMsgs', messageListener);
+
+        return () => {
+            socket.off('checkMsgs', messageListener);
+        };
+    }, [conversationId, fetchMessages]);
+
+    // Scroll to the bottom of the chat when messages change
     useEffect(() => {
         if (chatBoxContentRef.current) {
             chatBoxContentRef.current.scrollTop = chatBoxContentRef.current.scrollHeight;
         }
-    }, [messageData]);
+    }, [messages]);
 
-    // Handle input change
-    const handleMessageChange = (e) => {
-        setMessage(e.target.value);
-    };
+    const handleMessageChange = (e) => setMessage(e.target.value);
 
-    // Handle message send
     const handleSendMessage = async () => {
-        if (!message.trim()) return; // Don't send empty messages
-        const token = localStorage.getItem('token');
-        setIsSending(true); // Start the sending process
+        if (!message.trim()) return;
+
+        const tempMessage = { message, sender: 'user' };
+        setMessages((prev) => [...prev, tempMessage]);
+        setIsSending(true);
+
         try {
-            const response = await fetch(`/message/${userId}`, {
+            const response = await fetch(`http://localhost:5000/message/${userId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -33,48 +81,54 @@ const ChatBox = ({ messageData, userName, userId }) => {
                 body: JSON.stringify({ message }),
             });
 
-            if (response.ok) {
-                const newMessage = await response.json();
-                setMessage(''); // Clear the input field after sending
-            } else {
-                const errorData = await response.json();
-                console.error('Error:', errorData.error);
+            if (!response.ok) {
+                console.error('Error sending message:', response.statusText);
+                setMessages((prev) => prev.slice(0, -1)); // Remove the last (temp) message
             }
+
+            setMessage('');
         } catch (error) {
             console.error('Error sending message:', error);
+            setMessages((prev) => prev.slice(0, -1)); // Remove the last (temp) message
+        } finally {
+            setIsSending(false);
         }
-        setIsSending(false); // End sending process
+
+        socket.emit('newMsg', { message, conversationId });
     };
 
-    // Handle "Enter" key press
     const handleKeyPress = (e) => {
         if (e.key === 'Enter' && !isSending) {
-            e.preventDefault(); // Prevent the default behavior of Enter (like submitting a form)
+            e.preventDefault();
             handleSendMessage();
         }
     };
 
+    // Rendered messages using useMemo for optimization
+    const renderedMessages = useMemo(() => {
+        return messages.map((msg, index) => (
+            <div
+                key={index}
+                className={`messageDiv ${msg.sender === 'user' ? 'senderMsg' : 'receiverMsg'}`}
+            >
+                <div className="messageStyleDiv">
+                    <p className="message">{msg.message}</p>
+                </div>
+            </div>
+        ));
+    }, [messages]);
+
     return (
         <div className="ChatBox">
-            {!messageData.length && !userName && <p>Click on a user to chat</p>}
-            {messageData && userName && (
+            {!messages.length && !userName && <p>Click on a user to chat</p>}
+            {messages.length > 0 && userName && (
                 <>
                     <div id="chatBoxHeader">
                         <h2>{userName}</h2>
                     </div>
                     <div id="chatBoxContent" ref={chatBoxContentRef}>
-                        {messageData.map((e, index) => (
-                            <div
-                                key={index}
-                                className={`messageDiv ${e.sender === 'user' ? 'senderMsg' : 'receiverMsg'}`}
-                            >
-                                <div className="messageStyleDiv">
-                                    <p className="message">{e.message}</p>
-                                </div>
-                            </div>
-                        ))}
+                        {renderedMessages}
                     </div>
-
                     <div id="newMsgDiv">
                         <input
                             type="text"
@@ -82,7 +136,7 @@ const ChatBox = ({ messageData, userName, userId }) => {
                             placeholder="Type a message..."
                             value={message}
                             onChange={handleMessageChange}
-                            onKeyDown={handleKeyPress} // Added event listener for "Enter" key
+                            onKeyDown={handleKeyPress}
                         />
                         <button id="sendButton" onClick={handleSendMessage} disabled={isSending}>
                             {isSending ? 'Sending...' : 'Send'}

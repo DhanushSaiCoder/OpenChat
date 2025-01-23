@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/ChatList.css';
 import Conversation from './Conversation';
+import io from 'socket.io-client';
 
 const ChatList = ({displayChatBox}) => {
     const baseURL = 'http://localhost:5000';
@@ -69,8 +70,8 @@ const ChatList = ({displayChatBox}) => {
     }, [userId]);
 
 
-    const handleDisplayMessages = (data,userName,userId) => {
-        displayChatBox(data,userName,userId)
+    const handleDisplayMessages = (data,userName,userId,conversationId) => {
+        displayChatBox(data,userName,userId,conversationId)
     }
 
     return (

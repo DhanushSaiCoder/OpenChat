@@ -10,13 +10,14 @@ const Conversation = (props) => {
 
     const [messagesData, setMessagesData] = useState([]);
     const [messages, setMessages] = useState([]);
-
+    const [conversationId, setConversationId ] = useState('')
     var trimmedLastMessage;
     const openConversation = () => {
         if (!token) {
             console.error("Token is missing");
             return;
         }
+        //get messages and format them;
 
         fetch(`${baseURL}/message/${userId}`, {
             method: 'GET',
@@ -32,6 +33,7 @@ const Conversation = (props) => {
             })
             .then((data) => {
                 console.log('messages: ', data);
+                setConversationId(data[0].conversationId)
                 setMessagesData(data);
             })
             .catch((error) => {
@@ -60,11 +62,12 @@ const Conversation = (props) => {
         setMessages(msg);
     }, [messagesData]);
 
-    useEffect(() => {
-        if (messages.length) displayMessages(messages,userName,userId)
-    }, [messages])
     if(lastMessage)
         trimmedLastMessage = lastMessage.slice(0,17) + '...'
+    useEffect(() => {
+        console.log('sending conversationID: ', conversationId)
+        if (messages.length) displayMessages(messages,userName,userId,conversationId)
+    }, [messages])
     return (
         <div onClick={openConversation} className='conversation'>
             <img className='profilePic' src={defaultProfile} alt="profile" />
