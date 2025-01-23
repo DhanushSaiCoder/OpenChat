@@ -4,7 +4,6 @@ const User = require('../models/User');
 const mongoose = require('mongoose');
 const Joi = require('joi');
 const authenticateToken = require('../middleware/authenticateToken');
-
 const { Conversation, validateConversation } = require('../models/Conversation')
 
 // Get all conversations for the logged-in user
@@ -65,25 +64,41 @@ router.get('/:otherUser', authenticateToken, async (req, res) => {
     }
 });
 
-//converations logic goes here
 router.post('/:otherUser', authenticateToken, async (req, res) => {
     const { userId } = req.user;
     const otherUserId = req.params.otherUser;
     const { lastMessage } = req.body;
 
-
-    const conv = await Conversation.findOne({
-        participants: { $all: [userId, otherUserId] }
-    });
-
-    if (conv) return res.status(400).send('Conversation already exists.');
-
-    const newConversation = new Conversation({
-        participants: [userId, otherUserId],
-        lastMessage: lastMessage || {},
-    });
-
     try {
+        // Check if conversation already exists
+        const conv = await Conversation.findOne({
+            participants: { $all: [userId, otherUserId] },
+        });
+        if (conv) return res.status(400).send('Conversation already exists.');
+
+        // Add otherUserId to userId's friend list
+        const userUpdate = await User.updateOne(
+            { _id: userId },
+            { $addToSet: { friends: otherUserId } }
+        );
+
+        // Add userId to otherUserId's friend list
+        const otherUserUpdate = await User.updateOne(
+            { _id: otherUserId },
+            { $addToSet: { friends: userId } }
+        );
+
+        // Validate that both updates succeeded
+        if (!userUpdate.matchedCount || !otherUserUpdate.matchedCount) {
+            return res.status(404).send('One or both users not found.');
+        }
+
+        // Create and save the new conversation
+        const newConversation = new Conversation({
+            participants: [userId, otherUserId],
+            lastMessage: lastMessage || {},
+        });
+
         const result = await newConversation.save();
         res.status(201).send(result);
     } catch (error) {
@@ -91,6 +106,7 @@ router.post('/:otherUser', authenticateToken, async (req, res) => {
         res.status(500).send('Error creating conversation.');
     }
 });
+
 
 router.delete('/:otherUser', authenticateToken, async (req, res) => {
     try {

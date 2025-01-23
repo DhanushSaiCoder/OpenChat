@@ -25,6 +25,7 @@ app.use(cors());
 app.use('/auth', require('./routes/auth'));
 app.use('/conversation', require('./routes/conversations'));
 app.use('/message', require('./routes/messages'));
+app.use('/users', require('./routes/users'));
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
