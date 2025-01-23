@@ -58,7 +58,7 @@ const SignUp = () => {
       const data = await response.json();
       if (response.ok) {
         console.log('Signup successful:', data.message);
-        localStorage.setItem('token',JSON.stringify(data.token))
+        localStorage.setItem('token',(data.token))
         window.location.href='/'
       } else {
         // Handle errors from the server
