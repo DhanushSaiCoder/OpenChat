@@ -33,7 +33,35 @@ const Conversation = (props) => {
             })
             .then((data) => {
                 console.log('messages: ', data);
-                setConversationId(data[0].conversationId)
+                if(data.length){
+                    setConversationId(data[0].conversationId)
+
+                }
+                else{
+                    //fetch data
+                    fetch(`${baseURL}/conversation/${userId}`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    })
+                        .then((response) => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then((data) => {
+                            console.log('conversation doc: ', data);
+                            setConversationId(data._id)
+                            console.log("fetchedID", conversationId)
+                          
+                        })
+                        .catch((error) => {
+                            console.error('Error fetching messages:', error);
+                        });
+                
+                }
                 setMessagesData(data);
             })
             .catch((error) => {

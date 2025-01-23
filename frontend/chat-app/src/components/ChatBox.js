@@ -5,7 +5,6 @@ import io from 'socket.io-client';
 const socket = io(process.env.REACT_APP_SOCKET_URL || 'http://localhost:5000');
 
 const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationId }) => {
-    console.clear()
     const [messages, setMessages] = useState(messageData);
     const [message, setMessage] = useState('');
     const [isSending, setIsSending] = useState(false);
