@@ -75,9 +75,7 @@ input[type="search"]::-ms-reveal {
     align-items: center;
     justify-content: center;
     padding: 10px 10px;
-    position: absolute;
-    top: 0;
-    left: 0;
+    
 }
 #content{
     width: 100%;
