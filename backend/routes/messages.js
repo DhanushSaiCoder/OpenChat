@@ -61,8 +61,9 @@ router.post('/:otherUser', authenticateToken, async (req, res) => {
       reciverId: otherUserId,
       message: message,
     });
-     
-    validateMessage(newMessage)
+
+    validateMessage(newMessage);
+
     // Step 3.5: Update the lastMessage field in the conversation
     conversation.lastMessage = {
       senderId: userId,

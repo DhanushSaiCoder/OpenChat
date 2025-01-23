@@ -7,7 +7,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 #newConv {
     width: 30%;
@@ -21,9 +20,8 @@
     border-radius: 20px;
     background: rgb(34, 54, 72);
     border: 1px solid rgb(63, 101, 134);
-
 }
-#newConvHeader{
+#newConvHeader {
     width: 100%;
     height: auto;
     border-bottom: 1px solid rgb(63, 101, 134);
@@ -34,8 +32,6 @@
     align-items: center;
     justify-content: center;
     padding: 0 10px;
-
-    
 }
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button,
@@ -48,9 +44,9 @@ input[type="search"]::-ms-reveal {
     width: 0;
     height: 0;
 }
-#newConvSearchInp{
-    width: 85%;
-    max-width: 320px;
+#newConvSearchInp {
+    width: 90%;
+    /* max-width: 320px; */
     height: 40px;
     border-radius: 10px;
     background: rgb(48, 77, 103);
@@ -68,22 +64,18 @@ input[type="search"]::-ms-reveal {
     outline: none;
     background-color: rgb(63, 101, 134);
 }
-#searchDiv{
+#searchDiv {
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    padding: 5px 10px;
-    position: absolute;
-    top: 0;
-    left: 0;
+    justify-content: center;
+    padding: 10px 10px;
 }
-#content{
+#content {
     width: 100%;
     height: 80%;
     background: rgba(0, 0, 0, 0.328);
     overflow-y: scroll;
-
 
     display: flex;
     flex-direction: column;
@@ -96,7 +88,7 @@ input[type="search"]::-ms-reveal {
     position: relative;
 }
 
-#footer{
+#footer {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -120,4 +112,64 @@ input[type="search"]::-ms-reveal {
 #doneBtn:hover {
     background: linear-gradient(135deg, rgb(50, 140, 255), rgb(140, 50, 255));
     transform: scale(1.05);
+}
+
+.conversation {
+    width: 100%;
+    height: 70px;
+    padding: 5px 10px;
+    border-bottom: 1px solid rgb(63, 101, 134);
+
+    display: flex;
+    align-items: center;
+    justify-content: flex;
+    gap: 10px;
+    flex-wrap: nowrap;
+    position: relative;
+
+    cursor: pointer;
+}
+
+.conversation:hover {
+    background-color: rgba(0, 0, 0, 0.066);
+}
+
+.profilePic {
+    width: 45px;
+    height: 45px;
+    border-radius: 22.5px;
+}
+
+.lastMessage {
+    opacity: 0.675;
+    font-size: small;
+    padding-left: 1px;
+}
+.userDetailsDiv {
+    white-space: nowrap; /* Prevent text wrapping */
+    overflow: hidden; /* Hide overflowing text */
+    text-overflow: ellipsis; /* Show "..." for truncated text */
+}
+
+.mails {
+    opacity: 0.575;
+}
+.addFriendDiv {
+    width: auto;
+    height: 66%;
+    position: absolute;
+    /* top: 0; */
+    right: 20px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 9, 18);
+}
+.addFriendDiv:hover {
+    background: linear-gradient(135deg, rgb(39, 125, 255), rgb(122, 39, 255));
+    color: rgb(219, 237, 255);
+
 }
