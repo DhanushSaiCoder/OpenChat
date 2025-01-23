@@ -5,12 +5,15 @@ import io from 'socket.io-client';
 const socket = io(process.env.REACT_APP_SOCKET_URL || 'http://localhost:5000');
 
 const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationId }) => {
+
     const [messages, setMessages] = useState(messageData);
     const [message, setMessage] = useState('');
     const [isSending, setIsSending] = useState(false);
     
     const chatBoxContentRef = useRef(null);
     const token = localStorage.getItem('token');
+
+    console.log("messageData: ", messages , "conversationId", conversationId)
 
     // Fetch messages callback
     const fetchMessages = useCallback(async () => {
@@ -116,11 +119,33 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
             </div>
         ));
     }, [messages]);
-
     return (
         <div className="ChatBox">
             {!messages.length && !userName && <p>Click on a user to chat</p>}
             {messages.length > 0 && userName && (
+                <>
+                    <div id="chatBoxHeader">
+                        <h2>{userName}</h2>
+                    </div>
+                    <div id="chatBoxContent" ref={chatBoxContentRef}>
+                        {renderedMessages}
+                    </div>
+                    <div id="newMsgDiv">
+                        <input
+                            type="text"
+                            id="messageInput"
+                            placeholder="Type a message..."
+                            value={message}
+                            onChange={handleMessageChange}
+                            onKeyDown={handleKeyPress}
+                        />
+                        <button id="sendButton" onClick={handleSendMessage} disabled={isSending}>
+                            {isSending ? 'Sending...' : 'Send'}
+                        </button>
+                    </div>
+                </>
+            )}
+            {!messages.length && userName && (
                 <>
                     <div id="chatBoxHeader">
                         <h2>{userName}</h2>

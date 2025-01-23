@@ -94,7 +94,7 @@ const Conversation = (props) => {
         trimmedLastMessage = lastMessage.slice(0,17) + '...'
     useEffect(() => {
         console.log('sending conversationID: ', conversationId)
-        if (messages.length) displayMessages(messages,userName,userId,conversationId)
+        displayMessages(messages,userName,userId,conversationId)
     }, [messages])
     return (
         <div onClick={openConversation} className='conversation'>
