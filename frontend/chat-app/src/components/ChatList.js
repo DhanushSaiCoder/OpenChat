@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/ChatList.css';
 import Conversation from './Conversation';
-import io from 'socket.io-client';
 
 const ChatList = ({displayChatBox}) => {
     const baseURL = 'http://localhost:5000';
@@ -78,6 +77,11 @@ const ChatList = ({displayChatBox}) => {
         <div className='ChatList'>
             <div id='header'>
                 <h2>Users</h2>
+                <div onClick={() =>{
+                    window.location.href = '/addConversation'
+                }} id='iconDiv'>
+                <i class="fa-solid fa-user-group"> +</i>
+                </div>
                 <input id="searchInp" type='search' placeholder='Search...' />
             </div>
             <div id='content'>
