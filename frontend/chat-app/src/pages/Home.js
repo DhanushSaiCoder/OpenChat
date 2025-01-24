@@ -12,8 +12,26 @@ const Home = () => {
   const [username, setUserName] = useState('');
   const [userId, setUserId] = useState('');
   const [conversationId, setConversationId] = useState('');
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Set initial state based on window width
   const [screenWidth, setScreenWidth] = useState(window.innerWidth); // Create a state to keep track of screen width
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Set initial state based on window width
+
+
+  useEffect(() => {
+    checkTokenAndRedirect();
+
+    // Function to handle window resize
+    const handleResize = () => {
+      const width = window.innerWidth;
+      setIsMobile(width <= 768);
+      setScreenWidth(width); // Update screen width state
+    };
+
+    // Add event listener for window resize
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup event listener on component unmount
+    return () => window.removeEventListener('resize', handleResize);
+  }, [screenWidth]); // Add screenWidth to the dependency array
 
   const [page, setPage] = useState('list')
   // Check if the token is expired
@@ -40,22 +58,7 @@ const Home = () => {
     }
   }
 
-  useEffect(() => {
-    checkTokenAndRedirect();
-
-    // Function to handle window resize
-    const handleResize = () => {
-      const width = window.innerWidth;
-      setIsMobile(width <= 768);
-      setScreenWidth(width); // Update screen width state
-    };
-
-    // Add event listener for window resize
-    window.addEventListener('resize', handleResize);
-
-    // Cleanup event listener on component unmount
-    return () => window.removeEventListener('resize', handleResize);
-  }, [screenWidth]); // Add screenWidth to the dependency array
+  
 
   const displayChatBox = (data, userName, userId, conversationId) => {
     setConversationId(conversationId);

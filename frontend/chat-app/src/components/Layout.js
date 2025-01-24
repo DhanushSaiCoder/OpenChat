@@ -6,6 +6,27 @@ const Layout = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userDoc, setUserDoc] = useState({});
   const navigate = useNavigate(); // useNavigate hook for redirection
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Set initial state based on window width
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth); // Create a state to keep track of screen width
+
+
+  useEffect(() => {
+    // checkTokenAndRedirect();
+
+    // Function to handle window resize
+    const handleResize = () => {
+      const width = window.innerWidth;
+      setIsMobile(width <= 768);
+      setScreenWidth(width); // Update screen width state
+    };
+
+    // Add event listener for window resize
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup event listener on component unmount
+    return () => window.removeEventListener('resize', handleResize);
+  }, [screenWidth]); // Add screenWidth to the dependency array
+
 
   useEffect(() => {
     const token = localStorage.getItem("token"); // Retrieve token from localStorage
@@ -53,7 +74,7 @@ const Layout = () => {
     <>
       <nav className="navbar">
         <div className="navbar-logo">
-          <h2><Link className="appLogo" to="/">Open Chat</Link></h2>
+          <h2 ><Link id="title" className="appLogo" to="/">Open Chat</Link></h2>
         </div>
         <ul className="navbar-links">
           {/* Conditional rendering based on authentication status */}
@@ -69,6 +90,9 @@ const Layout = () => {
             </>
           )}
         </ul>
+        {isMobile && (
+          <i id="menuIcon" class="fa-solid fa-bars"></i>
+        )}
       </nav>
 
       <Outlet />
