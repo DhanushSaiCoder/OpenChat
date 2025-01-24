@@ -20,7 +20,7 @@ body {
     padding: 20px 55px;
     background: rgb(34, 54, 72);
     color: #fff;
-    
+
     border-radius: 20px;
     transition: all 0.23s ease;
 }
@@ -86,28 +86,43 @@ body {
 }
 .logout-button {
     background-color: #f4433665; /* Red background color for logout */
-    color: white;              /* White text color */
-    font-size: 16px;           /* Set the font size */
-    padding: 8px 10px;        /* Add some padding around the text */
-    border: 1.5px solid rgba(255, 0, 0, 0.712);              /* Remove the border */
-    border-radius: 5px;        /* Rounded corners */
-    cursor: pointer;           /* Pointer cursor on hover */
+    color: white; /* White text color */
+    font-size: 16px; /* Set the font size */
+    padding: 8px 10px; /* Add some padding around the text */
+    border: 1.5px solid rgba(255, 0, 0, 0.712); /* Remove the border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
     transition: background-color 0.3s ease-in-out; /* Smooth background transition */
-  }
-  
-  .logout-button:hover {
+}
+
+.logout-button:hover {
     background-color: #e53935; /* Darker red when hovered */
-  }
-  
-  .logout-button:focus {
+}
+
+.logout-button:focus {
     outline: none; /* Remove outline when the button is focused */
-  }
-  
-  .logout-button:active {
+}
+
+.logout-button:active {
     background-color: #d32f2f; /* Darkest red when button is clicked */
-  }
-  Link,li{
+}
+Link,
+li {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
+}
+.headerUserDetailsDiv{
+    height: auto;
+    text-align: right;
+
+
+}
+.headerUserDetailsDiv h3{
+    font-weight: bold;
+}
+.headerUserDetailsDiv p{
+    opacity: 0.75;
+    font-weight: 300;
+    font-size: small;
+}

@@ -4,8 +4,24 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const router = express.Router();
 const authenticateToken = require('../middleware/authenticateToken')
-
 //get user doc
+router.get('/userFullDoc', authenticateToken, async (req, res) => {
+  if (!req.user) {
+    return res.status(401).send('Unauthorized: No valid token provided');
+  }
+
+  try {
+    const user = await User.findOne({ _id: req.user.userId });
+    if (!user) {
+      return res.status(404).send('User not found'); // Send 404 status for user not found
+    }
+    res.status(200).send(user); // Send 200 status for successful retrieval
+  } catch (error) {
+    res.status(500).send('Internal Server Error'); // Handle any other errors
+  }
+});
+
+
 router.get('/userDoc', authenticateToken, async (req, res) => {
   if (!req.user) {
     return res.status(401).send('Unauthorized: No valid token provided');
