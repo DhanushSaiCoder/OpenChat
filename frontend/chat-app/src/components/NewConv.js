@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/NewConv.css';
 import defaultProfile from '../profiles/defaultProfile.jpg';
+import Fuse from 'fuse.js';
 
 const NewConv = () => {
     const [friends, setFriends] = useState([]);
+    const [filteredFriends, setFilteredFriends] = useState([]);
+    const [search, setSearch] = useState('');
+
     const [userId, setUserId] = useState('');
-    const [reload, setReload] = useState(true)
+    const [reload, setReload] = useState(true);
     const token = localStorage.getItem('token');
 
     // Get logged in user id
@@ -78,12 +82,34 @@ const NewConv = () => {
             })
             .then((data) => {
                 console.log(data);
-                window.location.reload()
+                window.location.reload();
             })
             .catch((error) => {
                 console.error('Error posting conversation:', error);
             });
-    }
+    };
+
+    const handleSearchChange = (e) => {
+        const searchTxt = e.target.value.trim().toLowerCase();
+        setSearch(searchTxt);
+    };
+
+    useEffect(() => {
+        if (!search.length) {
+            setFilteredFriends([]);
+            return;
+        }
+
+        const fuse = new Fuse(friends, {
+            keys: ['username'],
+            threshold: 0.3 // Adjust this to make the search more or less fuzzy
+        });
+
+        const result = fuse.search(search);
+        const filtered = result.map((r) => r.item);
+
+        setFilteredFriends(filtered);
+    }, [search, friends]);
 
     return (
         <div className='newConvContainer'>
@@ -95,9 +121,9 @@ const NewConv = () => {
                 </div>
                 <div id='content'>
                     <div id='searchDiv'>
-                        <input id="newConvSearchInp" type='search' placeholder='Search by username...' />
+                        <input onChange={handleSearchChange} id="newConvSearchInp" type='search' placeholder='Search by username...' />
                     </div>
-                    {friends.length > 0 && (
+                    {!search.length && friends.length > 0 ? (
                         friends.map((user) => (
                             <div className='conversation' key={user.userId}>
                                 <img className='profilePic' src={defaultProfile} alt="profile" />
@@ -108,10 +134,23 @@ const NewConv = () => {
                                 <div onClick={() => { postConversation(user.userId) }} className='addFriendDiv'><b>Add</b></div>
                             </div>
                         ))
-                    )}
-                    {!friends.length && (
-                        <p class='usersOver'>You are a friend of all users.<br />Waiting for a new user to sign up</p>
+                    ) : null}
 
+                    {search.length && filteredFriends.length > 0 ? (
+                        filteredFriends.map((user) => (
+                            <div className='conversation' key={user.userId}>
+                                <img className='profilePic' src={defaultProfile} alt="profile" />
+                                <div className='userDetailsDiv'>
+                                    <h4>{user.username}</h4>
+                                    <p className='mails'>{user.email}</p>
+                                </div>
+                                <div onClick={() => { postConversation(user.userId) }} className='addFriendDiv'><b>Add</b></div>
+                            </div>
+                        ))
+                    ) : null}
+
+                    {!friends.length && (
+                        <p className='usersOver'>You are a friend of all users.<br />Waiting for a new user to sign up</p>
                     )}
                 </div>
                 <div id='footer'>
