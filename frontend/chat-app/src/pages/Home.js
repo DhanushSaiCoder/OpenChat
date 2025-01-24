@@ -8,50 +8,69 @@ import ChatBox from './../components/ChatBox';
 const Home = () => {
   const navigate = useNavigate(); // Initialize useNavigate hook
 
-  const [messageData, setMessageData] = useState([])
-  const [username, setUserName] = useState('')
-  const [userId, setUserId] = useState('')
-  const [conversationId, setConversationId] = useState('')
+  const [messageData, setMessageData] = useState([]);
+  const [username, setUserName] = useState('');
+  const [userId, setUserId] = useState('');
+  const [conversationId, setConversationId] = useState('');
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth); // Create a state to keep track of screen width
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Set initial state based on window width
+
 
   useEffect(() => {
-    // Check if token exists in localStorage
-    function isTokenExpired(token) {
-      try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        const expiry = payload.exp;
-        const now = Math.floor(Date.now() / 1000);
+    checkTokenAndRedirect();
 
-        if (expiry < now) {
-          return true;
-        } else {
-          return false;
-        }
-      } catch (e) {
-        console.error('Invalid token', e);
-        return true;
-      }
+    // Function to handle window resize
+    const handleResize = () => {
+      const width = window.innerWidth;
+      setIsMobile(width <= 768);
+      setScreenWidth(width); // Update screen width state
+    };
+
+    // Add event listener for window resize
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup event listener on component unmount
+    return () => window.removeEventListener('resize', handleResize);
+  }, [screenWidth]); // Add screenWidth to the dependency array
+
+  const [page, setPage] = useState('list')
+  // Check if the token is expired
+  function isTokenExpired(token) {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const expiry = payload.exp;
+      const now = Math.floor(Date.now() / 1000);
+
+      return expiry < now;
+    } catch (e) {
+      console.error('Invalid token', e);
+      return true;
     }
-
-    function checkTokenAndRedirect() {
-      const token = localStorage.getItem('token');
-
-      if (!token || isTokenExpired(token)) {
-        window.location.href = 'auth/login';
-      } else {
-        console.log('Token is valid');
-        // Proceed with the rest of your app logic
-      }
-    }
-    checkTokenAndRedirect()
-  }, []);
-
-  const displayChatBox = (data, userName, userId, conversationId) => {
-    setConversationId(conversationId)
-    setMessageData(data)
-    setUserName(userName)
-    setUserId(userId)
   }
 
+  // Check token and redirect if needed
+  function checkTokenAndRedirect() {
+    const token = localStorage.getItem('token');
+    if (!token || isTokenExpired(token)) {
+      window.location.href = 'auth/login';
+    } else {
+      console.log('Token is valid');
+    }
+  }
+
+  
+
+  const displayChatBox = (data, userName, userId, conversationId) => {
+    setConversationId(conversationId);
+    setMessageData(data);
+    setUserName(userName);
+    setUserId(userId);
+  };
+
+  const togglePage = () => {
+    if (page == 'list') setPage('box')
+    else setPage('box')
+  }
 
   return (
     <div className='container'>
@@ -59,8 +78,21 @@ const Home = () => {
         <div className='home'>
           <Layout />
           <div id="home-content">
-            <ChatList displayChatBox={displayChatBox} />
-            <ChatBox messageData={messageData} userName={username} userId={userId} conversationId={conversationId} />
+            
+            
+            {!isMobile && (
+              <>
+              <ChatList togglePage={togglePage} displayChatBox={displayChatBox} />
+              <ChatBox togglePage={togglePage} messageData={messageData} userName={username} userId={userId} conversationId={conversationId} />
+              </>
+            )}
+
+            {isMobile && page == 'list' ? (
+              <ChatList togglePage={togglePage} displayChatBox={displayChatBox} />
+            ) : isMobile && (
+              <ChatBox togglePage={togglePage} messageData={messageData} userName={username} userId={userId} conversationId={conversationId} />
+            )}
+
           </div>
         </div>
       </div>
@@ -69,3 +101,5 @@ const Home = () => {
 };
 
 export default Home;
+
+

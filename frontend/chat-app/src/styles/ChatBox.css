@@ -6,9 +6,8 @@
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
-
 .ChatBox {
-    width: 73%;
+    width: 65%;
     height: 100%;
     background: linear-gradient(135deg, rgb(34, 54, 72), rgb(25, 40, 55));
     border-radius: 20px;
@@ -63,7 +62,6 @@
 #chatBoxContent::-webkit-scrollbar-thumb:hover {
     background: rgba(63, 101, 134, 0.8);
 }
-
 .messageDiv {
     width: 100%;
     display: flex;
@@ -86,6 +84,11 @@
     font-weight: 400;
     line-height: 1.4;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-wrap: break-word; /* This will ensure that long words will break */
+    word-wrap: break-word; /* Added for IE compatibility */
+    word-break: break-word; /* Alternative property for word breaking */
+    overflow: hidden; /* This ensures content doesn't overflow the container */
+    text-overflow: ellipsis; /* Add ellipsis (...) for overflowed text */
 }
 
 .receiverMsg .messageStyleDiv {
@@ -99,6 +102,7 @@
     color: white;
     border-bottom-right-radius: 5px;
 }
+
 
 #newMsgDiv {
     height: 13%;
@@ -197,4 +201,37 @@
     padding: 0;
     border-radius: 20px;
     
+}
+.backBtn{
+    display: none;
+    background: transparent;
+    border: none;
+    padding: 10px 10px;
+    color: white;
+    font-size: large;
+}
+
+@media (max-width: 768px) {
+    .ChatBox {
+        width: 95vw;
+
+    }
+    #chatBoxHeader h2{
+        font-size: large;
+    }
+    #chatBoxHeader{
+        padding: 0;
+    }
+   
+    .backBtn{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        padding: 10px 10px;
+        color: white;
+        font-size: large;
+    }
+
 }

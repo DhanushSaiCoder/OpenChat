@@ -5,7 +5,7 @@
 }
 .ChatList {
     width: 100%;
-    max-width: 25vw;
+    max-width: 30vw;
     height: 100%;
     background: rgb(34, 54, 72);
     border-radius: 20px;
@@ -20,7 +20,6 @@
     scrollbar-color: rgba(63, 101, 134, 0.5) transparent;
     scroll-behavior: smooth; /* This property enables smooth scrolling */
 }
-
 
 .ChatList::-webkit-scrollbar {
     width: 8px;
@@ -98,7 +97,7 @@ input[type="search"]::-webkit-search-results-decoration {
 #chatListContent {
     width: 100%;
 }
-#iconDiv{
+#iconDiv {
     height: 40px;
     width: 40px;
     position: absolute;
@@ -111,22 +110,27 @@ input[type="search"]::-webkit-search-results-decoration {
     align-items: center;
     justify-content: center;
 }
-#iconDiv:hover{
+#iconDiv:hover {
     background-color: #ffffff1d;
-
 }
-.addConv{
+.addConv {
     text-decoration: none;
-    color:rgba(64, 194, 255, 0.748);
+    color: rgba(64, 194, 255, 0.748);
     cursor: pointer;
     font-size: smaller;
     text-align: center;
     margin: 25px;
     transition: all 0.25s ease;
-   
 }
-.addConv:hover{
+.addConv:hover {
     text-decoration: underline;
 
     color: skyblue;
+}
+@media (max-width: 768px) {
+    .ChatList {
+        width: 95vw;
+        max-width: 95vw;
+
+    }
 }

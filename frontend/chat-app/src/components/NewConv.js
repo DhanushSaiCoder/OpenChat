@@ -12,6 +12,8 @@ const NewConv = () => {
     const [reload, setReload] = useState(true);
     const token = localStorage.getItem('token');
 
+    const [loading, setLoading] = useState({}); // New state for loading
+
     // Get logged in user id
     useEffect(() => {
         fetch(`http://localhost:5000/auth/`, {
@@ -64,6 +66,8 @@ const NewConv = () => {
     }, [token]);
 
     const postConversation = (id) => {
+        setLoading(prevState => ({ ...prevState, [id]: true }));
+
         fetch(`http://localhost:5000/conversation/${id}`, {
             method: 'POST',
             headers: {
@@ -86,6 +90,9 @@ const NewConv = () => {
             })
             .catch((error) => {
                 console.error('Error posting conversation:', error);
+            })
+            .finally(() => {
+                setLoading(prevState => ({ ...prevState, [id]: false }));
             });
     };
 
@@ -131,7 +138,12 @@ const NewConv = () => {
                                     <h4>{user.username}</h4>
                                     <p className='mails'>{user.email}</p>
                                 </div>
-                                <div onClick={() => { postConversation(user.userId) }} className='addFriendDiv'><b>Add</b></div>
+                                <div 
+                                    onClick={!loading[user.userId] ? () => { postConversation(user.userId) } : null} 
+                                    className={`addFriendDiv ${loading[user.userId] ? 'loading' : ''}`}
+                                >
+                                    <b>{loading[user.userId] ? 'Adding...' : 'Add'}</b>
+                                </div>
                             </div>
                         ))
                     ) : null}
@@ -144,7 +156,12 @@ const NewConv = () => {
                                     <h4>{user.username}</h4>
                                     <p className='mails'>{user.email}</p>
                                 </div>
-                                <div onClick={() => { postConversation(user.userId) }} className='addFriendDiv'><b>Add</b></div>
+                                <div 
+                                    onClick={!loading[user.userId] ? () => { postConversation(user.userId) } : null} 
+                                    className={`addFriendDiv ${loading[user.userId] ? 'loading' : ''}`}
+                                >
+                                    <b>{loading[user.userId] ? 'Adding...' : 'Add'}</b>
+                                </div>
                             </div>
                         ))
                     ) : null}

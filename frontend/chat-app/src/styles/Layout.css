@@ -112,17 +112,63 @@ li {
     align-items: center;
     justify-content: center;
 }
-.headerUserDetailsDiv{
+.headerUserDetailsDiv {
     height: auto;
     text-align: right;
-
-
 }
-.headerUserDetailsDiv h3{
+.headerUserDetailsDiv h3 {
     font-weight: bold;
 }
-.headerUserDetailsDiv p{
+.headerUserDetailsDiv p {
     opacity: 0.75;
     font-weight: 300;
     font-size: small;
+}
+@media (max-width: 768px) {
+    .navbar {
+        padding: 20px;
+    }
+    #title {
+        font-size: large;
+    }
+    .navbar-logo h2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #menuIcon {
+        font-size: larger;
+    }
+    .sliding-menu {
+        position: fixed;
+        bottom: -100%;
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        height: auto;
+        border-radius: 20px 20px 0 0;
+        background: rgb(20, 32, 42);
+        color: whitesmoke;
+        border-top: 5px solid white;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        transition: bottom 0.3s ease-in-out;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 25px;
+        padding: 40px 10px;
+    }
+
+    .sliding-menu.visible {
+        bottom: 0;
+    }
+    #menuHeader {
+        padding:  0 d10px;
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 20px;
+    }
 }

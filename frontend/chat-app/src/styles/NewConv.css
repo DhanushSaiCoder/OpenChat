@@ -10,7 +10,7 @@
 }
 #newConv {
     width: 30%;
-    min-width: 400px;
+    min-width: 500px;
     height: 70%;
     display: flex;
     align-items: center;
@@ -112,7 +112,6 @@ input[type="search"]::-ms-reveal {
 #doneBtn:hover {
     background: linear-gradient(135deg, rgb(50, 140, 255), rgb(140, 50, 255));
     transform: scale(1.05);
-     
 }
 
 .conversation {
@@ -178,7 +177,8 @@ input[type="search"]::-ms-reveal {
     background-position: 100% 0; /* Initial position of the gradient */
     color: rgb(219, 237, 255);
     transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(39, 165, 255, 0.8), 0 0 40px rgba(133, 39, 255, 0.6);
+    box-shadow: 0 0 20px rgba(39, 165, 255, 0.8),
+        0 0 40px rgba(133, 39, 255, 0.6);
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
     animation: gradientMove 3s infinite, pulse 1.5s infinite; /* Apply both animations */
 }
@@ -197,17 +197,29 @@ input[type="search"]::-ms-reveal {
 
 @keyframes pulse {
     0% {
-        box-shadow: 0 0 20px rgba(39, 125, 255, 0.8), 0 0 40px rgba(122, 39, 255, 0.6);
+        box-shadow: 0 0 20px rgba(39, 125, 255, 0.8),
+            0 0 40px rgba(122, 39, 255, 0.6);
     }
     50% {
-        box-shadow: 0 0 30px rgba(39, 125, 255, 1), 0 0 60px rgba(122, 39, 255, 0.8);
+        box-shadow: 0 0 30px rgba(39, 125, 255, 1),
+            0 0 60px rgba(122, 39, 255, 0.8);
     }
     100% {
-        box-shadow: 0 0 20px rgba(39, 125, 255, 0.8), 0 0 40px rgba(122, 39, 255, 0.6);
+        box-shadow: 0 0 20px rgba(39, 125, 255, 0.8),
+            0 0 40px rgba(122, 39, 255, 0.6);
     }
 }
-.usersOver{
+.usersOver {
     text-align: center;
     opacity: 0.75;
     margin-top: 35%;
+}
+
+@media (max-width: 768px) {
+    #doneBtn {
+        padding: 5px 10px;
+    }
+    #newConv {
+        min-width: 300px;
+    }
 }
