@@ -32,3 +32,16 @@
 .mails{
     opacity: 0.575;
 }
+.conversation {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.conversation.selected {
+    background-color: #ffffff12; /* Change this to the desired color */
+}
+.conversation.selected:hover{
+    background-color: #ffffff12; /* Change this to the desired color */
+
+}

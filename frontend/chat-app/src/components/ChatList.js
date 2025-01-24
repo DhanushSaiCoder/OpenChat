@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/ChatList.css';
 import Conversation from './Conversation';
-
 import Fuse from 'fuse.js';
-
 
 const ChatList = ({ displayChatBox, togglePage }) => {
     const baseURL = 'http://localhost:5000';
     const [userId, setUserId] = useState('');
-    const [users, setUsers] = useState([]);  // users should be an array
-    const [filteredUsers, setFilteredUsers] = useState([]);  // users should be an array
+    const [users, setUsers] = useState([]);
+    const [filteredUsers, setFilteredUsers] = useState([]);
     const [search, setSearch] = useState('');
 
+    const [selectedUserId, setSelectedUserId] = useState(null);
 
-
-    //gts user data
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
@@ -37,11 +34,9 @@ const ChatList = ({ displayChatBox, togglePage }) => {
         }
     }, []);
 
-    // get users of conversations
     useEffect(() => {
         if (userId !== '') {
             const token = localStorage.getItem('token');
-
             fetch(`${baseURL}/conversation`, {
                 method: 'GET',
                 headers: {
@@ -63,7 +58,6 @@ const ChatList = ({ displayChatBox, togglePage }) => {
                                 userName: element.participants[0].username,
                                 userId: element.participants[0]._id,
                                 lastMessage: element.lastMessage.content
-
                             });
                         }
                     });
@@ -75,22 +69,22 @@ const ChatList = ({ displayChatBox, togglePage }) => {
         }
     }, [userId]);
 
-
     const handleDisplayMessages = (data, userName, userId, conversationId) => {
-        displayChatBox(data, userName, userId, conversationId)
-    }
+        displayChatBox(data, userName, userId, conversationId);
+        setSelectedUserId(userId);
+    };
+
     const handleSearchChange = (e) => {
         const searchTxt = e.target.value.trim().toLowerCase();
-        setSearch(searchTxt)
-    }
-    //remove data from usersState
+        setSearch(searchTxt);
+    };
 
     useEffect(() => {
         if (!search.length) return;
 
         const fuse = new Fuse(users, {
             keys: ['userName'],
-            threshold: 0.3 // Adjust this to make the search more or less fuzzy
+            threshold: 0.3
         });
 
         const result = fuse.search(search);
@@ -99,9 +93,6 @@ const ChatList = ({ displayChatBox, togglePage }) => {
         setFilteredUsers(filtered);
     }, [search, users]);
 
-
-
-
     return (
         <div className='ChatList'>
             <div id='header'>
@@ -109,7 +100,7 @@ const ChatList = ({ displayChatBox, togglePage }) => {
                 <div onClick={() => {
                     window.location.href = '/addConversation'
                 }} id='iconDiv'>
-                    <i class="fa-solid fa-user-group"> +</i>
+                    <i className="fa-solid fa-user-group"> +</i>
                 </div>
                 <input onChange={handleSearchChange} id="searchInp" type='search' placeholder='Search...' />
             </div>
@@ -123,6 +114,7 @@ const ChatList = ({ displayChatBox, togglePage }) => {
                             userName={user.userName}
                             userId={user.userId}
                             lastMessage={user.lastMessage}
+                            isSelected={selectedUserId === user.userId}
                         />
                     ))
                 ) : (
@@ -134,6 +126,7 @@ const ChatList = ({ displayChatBox, togglePage }) => {
                             userName={user.userName}
                             userId={user.userId}
                             lastMessage={user.lastMessage}
+                            isSelected={selectedUserId === user.userId}
                         />
                     ))
                 )}
@@ -146,7 +139,6 @@ const ChatList = ({ displayChatBox, togglePage }) => {
                     + Add Friend
                 </p>
             </div>
-
         </div>
     );
 };
