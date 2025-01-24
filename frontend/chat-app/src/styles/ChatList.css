@@ -3,7 +3,6 @@
     margin: 0;
     box-sizing: border-box;
 }
-
 .ChatList {
     width: 100%;
     max-width: 25vw;
@@ -19,8 +18,9 @@
     overflow-x: hidden;
     scrollbar-width: thin;
     scrollbar-color: rgba(63, 101, 134, 0.5) transparent;
-
+    scroll-behavior: smooth; /* This property enables smooth scrolling */
 }
+
 
 .ChatList::-webkit-scrollbar {
     width: 8px;
