@@ -8,7 +8,7 @@ const Layout = () => {
   const navigate = useNavigate(); // useNavigate hook for redirection
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Set initial state based on window width
   const [screenWidth, setScreenWidth] = useState(window.innerWidth); // Create a state to keep track of screen width
-
+  const [isMenuVisible, setIsMenuVisible] = useState(false); // State for menu visibility
 
   useEffect(() => {
     // checkTokenAndRedirect();
@@ -26,7 +26,6 @@ const Layout = () => {
     // Cleanup event listener on component unmount
     return () => window.removeEventListener('resize', handleResize);
   }, [screenWidth]); // Add screenWidth to the dependency array
-
 
   useEffect(() => {
     const token = localStorage.getItem("token"); // Retrieve token from localStorage
@@ -70,6 +69,11 @@ const Layout = () => {
     navigate("/auth/login"); // Use navigate hook to redirect
   };
 
+  // Menu icon click handler
+  const handleMenuClick = () => {
+    setIsMenuVisible(!isMenuVisible); // Toggle menu visibility
+  };
+
   return (
     <>
       <nav className="navbar">
@@ -91,9 +95,18 @@ const Layout = () => {
           )}
         </ul>
         {isMobile && (
-          <i id="menuIcon" class="fa-solid fa-bars"></i>
+          <i id="menuIcon" className="fa-solid fa-bars" onClick={handleMenuClick}></i>
         )}
       </nav>
+
+      {/* Sliding menu */}
+      {isMobile && (
+        <div className={`sliding-menu ${isMenuVisible ? 'visible' : ''}`}>
+          <div  onClick={handleMenuClick} id="menuHeader"><i class="fa-solid fa-xmark"></i></div>
+          <div style={{textAlign: "center"}} className="headerUserDetailsDiv"><h3>{userDoc.username}</h3><p>{userDoc.email}</p></div>
+          <li><button onClick={handleLogout} className="logout-button">Log Out</button></li> {/* Logout button */}
+        </div>
+      )}
 
       <Outlet />
     </>
