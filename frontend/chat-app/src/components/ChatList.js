@@ -5,7 +5,7 @@ import Conversation from './Conversation';
 import Fuse from 'fuse.js';
 
 
-const ChatList = ({ displayChatBox }) => {
+const ChatList = ({ displayChatBox, togglePage }) => {
     const baseURL = 'http://localhost:5000';
     const [userId, setUserId] = useState('');
     const [users, setUsers] = useState([]);  // users should be an array
@@ -117,6 +117,7 @@ const ChatList = ({ displayChatBox }) => {
                 {search.length ? (
                     filteredUsers.map((user) => (
                         <Conversation
+                            togglePage={togglePage}
                             displayMessages={handleDisplayMessages}
                             key={user.userId}
                             userName={user.userName}
@@ -127,6 +128,7 @@ const ChatList = ({ displayChatBox }) => {
                 ) : (
                     users.map((user) => (
                         <Conversation
+                            togglePage={togglePage}
                             displayMessages={handleDisplayMessages}
                             key={user.userId}
                             userName={user.userName}

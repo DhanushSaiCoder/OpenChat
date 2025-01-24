@@ -15,6 +15,7 @@ const Home = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Set initial state based on window width
   const [screenWidth, setScreenWidth] = useState(window.innerWidth); // Create a state to keep track of screen width
 
+  const [page, setPage] = useState('list')
   // Check if the token is expired
   function isTokenExpired(token) {
     try {
@@ -63,16 +64,32 @@ const Home = () => {
     setUserId(userId);
   };
 
+  const togglePage = () => {
+    if (page == 'list') setPage('box')
+    else setPage('box')
+  }
+
   return (
     <div className='container'>
       <div id='darker'>
         <div className='home'>
           <Layout />
           <div id="home-content">
-            <ChatList displayChatBox={displayChatBox} />
+            
+            
             {!isMobile && (
-              <ChatBox messageData={messageData} userName={username} userId={userId} conversationId={conversationId} />
+              <>
+              <ChatList togglePage={togglePage} displayChatBox={displayChatBox} />
+              <ChatBox togglePage={togglePage} messageData={messageData} userName={username} userId={userId} conversationId={conversationId} />
+              </>
             )}
+
+            {isMobile && page == 'list' ? (
+              <ChatList togglePage={togglePage} displayChatBox={displayChatBox} />
+            ) : isMobile && (
+              <ChatBox togglePage={togglePage} messageData={messageData} userName={username} userId={userId} conversationId={conversationId} />
+            )}
+
           </div>
         </div>
       </div>

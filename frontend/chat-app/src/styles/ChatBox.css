@@ -6,7 +6,6 @@
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
-
 .ChatBox {
     width: 73%;
     height: 100%;
@@ -197,4 +196,36 @@
     padding: 0;
     border-radius: 20px;
     
+}
+.backBtn{
+    display: none;
+    background: transparent;
+    border: none;
+    padding: 10px 10px;
+    color: white;
+    font-size: large;
+}
+@media (max-width: 768px) {
+    .ChatBox {
+        width: 95vw;
+
+    }
+    #chatBoxHeader h2{
+        font-size: large;
+    }
+    #chatBoxHeader{
+        padding: 0;
+    }
+   
+    .backBtn{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        padding: 10px 10px;
+        color: white;
+        font-size: large;
+    }
+
 }

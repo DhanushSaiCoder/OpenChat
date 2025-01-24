@@ -67,6 +67,7 @@ const Conversation = (props) => {
             .catch((error) => {
                 console.error('Error fetching messages:', error);
             });
+            props.togglePage()
     };
 
     useEffect(() => {

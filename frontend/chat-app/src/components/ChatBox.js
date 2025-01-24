@@ -6,7 +6,7 @@ import defaultProfile from '../profiles/defaultProfile.jpg';
 
 const socket = io(process.env.REACT_APP_SOCKET_URL || 'http://localhost:5000');
 
-const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationId }) => {
+const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationId, togglePage }) => {
 
     const [messages, setMessages] = useState(messageData);
     const [message, setMessage] = useState('');
@@ -127,6 +127,10 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
             {messages.length > 0 && userName && (
                 <>
                     <div id="chatBoxHeader">
+                        <button className='backBtn' onClick={() => {
+                            togglePage()
+                            window.location.reload()
+                        }}><i class="fa-solid fa-arrow-left"></i></button>
                         <img className='profImg' src={defaultProfile} alt="profile" />
 
                         <h2>{userName}</h2>
@@ -152,6 +156,10 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
             {!messages.length && userName && (
                 <>
                     <div id="chatBoxHeader">
+                        <button className='backBtn' onClick={() => {
+                            togglePage()
+                            window.location.reload()
+                        }}><i class="fa-solid fa-arrow-left"></i></button>
                         <img className='profImg' src={defaultProfile} alt="profile" />
                         <h2>{userName}</h2>
                     </div>
