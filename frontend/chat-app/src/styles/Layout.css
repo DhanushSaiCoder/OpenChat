@@ -94,6 +94,16 @@ body {
     cursor: pointer; /* Pointer cursor on hover */
     transition: background-color 0.3s ease-in-out; /* Smooth background transition */
 }
+.logout-button {
+    background-color: #fcd3d12c; /* Red background color for logout */
+    color: white; /* White text color */
+    font-size: 16px; /* Set the font size */
+    padding: 8px 15px; /* Add some padding around the text */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease-in-out;
+    border: none;
+}
 
 .logout-button:hover {
     background-color: #e53935; /* Darker red when hovered */
@@ -165,10 +175,20 @@ li {
         bottom: 0;
     }
     #menuHeader {
-        padding:  0 d10px;
+        padding: 0 d10px;
         position: absolute;
         top: 10px;
         right: 20px;
         font-size: 20px;
+    }
+    .logout-button {
+        background-color: #fcd3d12c; /* Red background color for logout */
+        color: white; /* White text color */
+        font-size: 16px; /* Set the font size */
+        padding: 8px 15px; /* Add some padding around the text */
+        border-radius: 5px; /* Rounded corners */
+        cursor: pointer; /* Pointer cursor on hover */
+        transition: background-color 0.3s ease-in-out;
+        border: none;
     }
 }
