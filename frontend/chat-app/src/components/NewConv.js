@@ -5,7 +5,7 @@ import Fuse from 'fuse.js';
 
 const NewConv = () => {
     const [friends, setFriends] = useState([]);
-    const [filteredFriends, setFilteredFriends] = useState([]); 
+    const [filteredFriends, setFilteredFriends] = useState([]);
     const [search, setSearch] = useState('');
 
     const [userId, setUserId] = useState('');
@@ -123,7 +123,7 @@ const NewConv = () => {
                     <div id='searchDiv'>
                         <input onChange={handleSearchChange} id="newConvSearchInp" type='search' placeholder='Search by username...' />
                     </div>
-                    {!search.length && friends.length > 0 && (
+                    {!search.length && friends.length > 0 ? (
                         friends.map((user) => (
                             <div className='conversation' key={user.userId}>
                                 <img className='profilePic' src={defaultProfile} alt="profile" />
@@ -134,8 +134,9 @@ const NewConv = () => {
                                 <div onClick={() => { postConversation(user.userId) }} className='addFriendDiv'><b>Add</b></div>
                             </div>
                         ))
-                    )}
-                    {search.length && filteredFriends.length > 0 && (
+                    ) : null}
+
+                    {search.length && filteredFriends.length > 0 ? (
                         filteredFriends.map((user) => (
                             <div className='conversation' key={user.userId}>
                                 <img className='profilePic' src={defaultProfile} alt="profile" />
@@ -146,7 +147,8 @@ const NewConv = () => {
                                 <div onClick={() => { postConversation(user.userId) }} className='addFriendDiv'><b>Add</b></div>
                             </div>
                         ))
-                    )}
+                    ) : null}
+
                     {!friends.length && (
                         <p className='usersOver'>You are a friend of all users.<br />Waiting for a new user to sign up</p>
                     )}
