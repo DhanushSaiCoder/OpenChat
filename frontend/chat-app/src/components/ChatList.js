@@ -114,16 +114,37 @@ const ChatList = ({ displayChatBox }) => {
                 <input onChange={handleSearchChange} id="searchInp" type='search' placeholder='Search...' />
             </div>
             <div id='chatListContent'>
-                {search.length && filteredUsers.map((user) => (
-                    <Conversation displayMessages={handleDisplayMessages} key={user.userId} userName={user.userName} userId={user.userId} lastMessage={user.lastMessage} />
-                ))}
-                {!search && users.map((user) => (
-                    <Conversation displayMessages={handleDisplayMessages} key={user.userId} userName={user.userName} userId={user.userId} lastMessage={user.lastMessage} />
-                ))}
-                <p onClick={() => {
-                    window.location.href = '/addConversation'
-                }} className='addConv' >+ Add Friend</p>
+                {search.length ? (
+                    filteredUsers.map((user) => (
+                        <Conversation
+                            displayMessages={handleDisplayMessages}
+                            key={user.userId}
+                            userName={user.userName}
+                            userId={user.userId}
+                            lastMessage={user.lastMessage}
+                        />
+                    ))
+                ) : (
+                    users.map((user) => (
+                        <Conversation
+                            displayMessages={handleDisplayMessages}
+                            key={user.userId}
+                            userName={user.userName}
+                            userId={user.userId}
+                            lastMessage={user.lastMessage}
+                        />
+                    ))
+                )}
+                <p
+                    onClick={() => {
+                        window.location.href = '/addConversation'
+                    }}
+                    className='addConv'
+                >
+                    + Add Friend
+                </p>
             </div>
+
         </div>
     );
 };
