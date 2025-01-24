@@ -112,6 +112,7 @@ input[type="search"]::-ms-reveal {
 #doneBtn:hover {
     background: linear-gradient(135deg, rgb(50, 140, 255), rgb(140, 50, 255));
     transform: scale(1.05);
+     
 }
 
 .conversation {

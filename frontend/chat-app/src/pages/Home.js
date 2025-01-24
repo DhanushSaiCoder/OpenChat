@@ -11,15 +11,41 @@ const Home = () => {
   const [messageData, setMessageData] = useState([])
   const [username, setUserName] = useState('')
   const [userId, setUserId] = useState('')
-  const [conversationId, setConversationId ] = useState('')
+  const [conversationId, setConversationId] = useState('')
 
   useEffect(() => {
     // Check if token exists in localStorage
-    if (!localStorage.getItem('token')) {
-      navigate('/auth/login'); // Redirect to login page if no token
+    function isTokenExpired(token) {
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const expiry = payload.exp;
+        const now = Math.floor(Date.now() / 1000);
+
+        if (expiry < now) {
+          return true;
+        } else {
+          return false;
+        }
+      } catch (e) {
+        console.error('Invalid token', e);
+        return true;
+      }
     }
-  }, [navigate]);
-  const displayChatBox = (data, userName,userId,conversationId) => {
+
+    function checkTokenAndRedirect() {
+      const token = localStorage.getItem('token');
+
+      if (!token || isTokenExpired(token)) {
+        window.location.href = 'auth/login';
+      } else {
+        console.log('Token is valid');
+        // Proceed with the rest of your app logic
+      }
+    }
+    checkTokenAndRedirect()
+  }, []);
+
+  const displayChatBox = (data, userName, userId, conversationId) => {
     setConversationId(conversationId)
     setMessageData(data)
     setUserName(userName)
@@ -34,7 +60,7 @@ const Home = () => {
           <Layout />
           <div id="home-content">
             <ChatList displayChatBox={displayChatBox} />
-            <ChatBox messageData={messageData} userName={username} userId={userId} conversationId={conversationId}/>
+            <ChatBox messageData={messageData} userName={username} userId={userId} conversationId={conversationId} />
           </div>
         </div>
       </div>

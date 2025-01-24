@@ -119,7 +119,6 @@ input[type="search"]::-webkit-search-results-decoration {
     text-decoration: none;
     color:rgba(64, 194, 255, 0.748);
     cursor: pointer;
-    text-decoration: underline;
     font-size: smaller;
     text-align: center;
     margin: 25px;
@@ -127,5 +126,7 @@ input[type="search"]::-webkit-search-results-decoration {
    
 }
 .addConv:hover{
+    text-decoration: underline;
+
     color: skyblue;
 }
