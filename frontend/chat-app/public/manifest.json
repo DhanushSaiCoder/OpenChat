@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Open Chat",
+  "name": "Open Chat App",
   "icons": [],
   "start_url": ".",
   "display": "standalone",
