@@ -4,7 +4,8 @@ import defaultProfile from '../profiles/defaultProfile.jpg';
 
 const Conversation = (props) => {
     const { userName, userId, lastMessage, displayMessages, togglePage, isSelected } = props;
-    const baseURL = 'http://localhost:5000';
+    const baseUrl = process.env.REACT_APP_BACKEND_URL
+
     const token = localStorage.getItem('token');
 
     const [messagesData, setMessagesData] = useState([]);
@@ -18,7 +19,7 @@ const Conversation = (props) => {
             return;
         }
 
-        fetch(`${baseURL}/message/${userId}`, {
+        fetch(`${baseUrl}/message/${userId}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -35,7 +36,7 @@ const Conversation = (props) => {
                 if (data.length) {
                     setConversationId(data[0].conversationId);
                 } else {
-                    fetch(`${baseURL}/conversation/${userId}`, {
+                    fetch(`${baseUrl}/conversation/${userId}`, {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${token}`

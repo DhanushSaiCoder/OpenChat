@@ -4,9 +4,12 @@ import io from 'socket.io-client';
 import SyncLoader from 'react-spinners/SyncLoader';
 import defaultProfile from '../profiles/defaultProfile.jpg';
 
-const socket = io(process.env.REACT_APP_SOCKET_URL || 'http://localhost:5000');
+const socket = io(process.env.BACKEND_URL);
 
 const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationId, togglePage }) => {
+    const baseUrl = process.env.REACT_APP_BACKEND_URL
+
+
     const [messages, setMessages] = useState(messageData);
     const [message, setMessage] = useState('');
     const [isFetchingMessages, setIsFetchingMessages] = useState(true);
@@ -22,7 +25,7 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
         try {
             console.log('fetching messages');
 
-            const response = await fetch(`http://localhost:5000/message/${userId}`, {
+            const response = await fetch(`${baseUrl}/message/${userId}`, {
                 method: 'GET',
                 headers: { 'Authorization': `Bearer ${token}` },
             });
@@ -77,7 +80,7 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
         setIsSending(true);
 
         try {
-            const response = await fetch(`http://localhost:5000/message/${userId}`, {
+            const response = await fetch(`${baseUrl}/message/${userId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -147,6 +150,7 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
                             value={message}
                             onChange={handleMessageChange}
                             onKeyDown={handleKeyPress}
+                            autoComplete='off'
                         />
                         <button id="sendButton" onClick={handleSendMessage} disabled={isSending}>
                             {isSending ? 'Sending...' : 'Send'}
@@ -175,6 +179,7 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
                             value={message}
                             onChange={handleMessageChange}
                             onKeyDown={handleKeyPress}
+                            autoComplete='off'
                         />
                         <button id="sendButton" onClick={handleSendMessage} disabled={isSending}>
                             {isSending ? 'Sending...' : 'Send'}
