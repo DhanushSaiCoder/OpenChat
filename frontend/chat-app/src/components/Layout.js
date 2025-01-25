@@ -38,7 +38,7 @@ const Layout = () => {
       setIsAuthenticated(isValid);
     }
 
-    fetch('/auth/userFullDoc', {
+    fetch(`${baseUrl}/auth/userFullDoc`, {
       method: "GET",
       headers: {
         'Authorization': `Bearer ${token}`
