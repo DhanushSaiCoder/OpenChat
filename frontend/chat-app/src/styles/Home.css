@@ -8,6 +8,9 @@
     width: 100vw;
     height: 90vh;
     color: #f4f5ff;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 .home {
     width: 95%;
@@ -41,7 +44,6 @@
         width: 100vw;
         height: 90vh;
         color: #f4f5ff;
-        border: 1px solid red;
     }
     #home-content {
         justify-content: center;
