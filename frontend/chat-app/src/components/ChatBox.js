@@ -1,26 +1,26 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import '../styles/ChatBox.css';
 import io from 'socket.io-client';
+import SyncLoader from 'react-spinners/SyncLoader';
 import defaultProfile from '../profiles/defaultProfile.jpg';
-
 
 const socket = io(process.env.REACT_APP_SOCKET_URL || 'http://localhost:5000');
 
 const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationId, togglePage }) => {
-
     const [messages, setMessages] = useState(messageData);
     const [message, setMessage] = useState('');
+    const [isFetchingMessages, setIsFetchingMessages] = useState(true);
     const [isSending, setIsSending] = useState(false);
 
     const chatBoxContentRef = useRef(null);
     const token = localStorage.getItem('token');
 
-    console.log("messageData: ", messages, "conversationId", conversationId)
+    console.log("messageData: ", messages, "conversationId", conversationId);
 
     // Fetch messages callback
     const fetchMessages = useCallback(async () => {
         try {
-            console.log('fetching messages')
+            console.log('fetching messages');
 
             const response = await fetch(`http://localhost:5000/message/${userId}`, {
                 method: 'GET',
@@ -39,6 +39,8 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
             }
         } catch (error) {
             console.error('Error fetching messages:', error);
+        } finally {
+            setIsFetchingMessages(false);
         }
     }, [userId, token]);
 
@@ -47,7 +49,6 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
         fetchMessages();
 
         const messageListener = (convId) => {
-
             if (convId === conversationId) {
                 fetchMessages();
             }
@@ -121,6 +122,7 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
             </div>
         ));
     }, [messages]);
+
     return (
         <div className="ChatBox">
             {!messages.length && !userName && <p>Click on a user to chat</p>}
@@ -128,11 +130,10 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
                 <>
                     <div id="chatBoxHeader">
                         <button className='backBtn' onClick={() => {
-                            togglePage()
-                            window.location.reload()
-                        }}><i class="fa-solid fa-arrow-left"></i></button>
+                            togglePage();
+                            window.location.reload();
+                        }}><i className="fa-solid fa-arrow-left"></i></button>
                         <img className='profImg' src={defaultProfile} alt="profile" />
-
                         <h2>{userName}</h2>
                     </div>
                     <div id="chatBoxContent" ref={chatBoxContentRef}>
@@ -157,9 +158,9 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
                 <>
                     <div id="chatBoxHeader">
                         <button className='backBtn' onClick={() => {
-                            togglePage()
-                            window.location.reload()
-                        }}><i class="fa-solid fa-arrow-left"></i></button>
+                            togglePage();
+                            window.location.reload();
+                        }}><i className="fa-solid fa-arrow-left"></i></button>
                         <img className='profImg' src={defaultProfile} alt="profile" />
                         <h2>{userName}</h2>
                     </div>
@@ -180,6 +181,11 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
                         </button>
                     </div>
                 </>
+            )}
+            {isFetchingMessages && (
+                <div className='loaderContainer'>
+                    <SyncLoader color={"#fff"} size={10} />
+                </div>
             )}
         </div>
     );

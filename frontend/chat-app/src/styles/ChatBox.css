@@ -211,6 +211,17 @@
     font-size: large;
 }
 
+.loaderContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
 @media (max-width: 768px) {
     .ChatBox {
         width: 95vw;
