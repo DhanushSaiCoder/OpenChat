@@ -51,7 +51,7 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
         fetchMessages();
 
         const messageListener = ({ message, conversationId: convId }) => {
-            if (convId === conversationId) {
+            if (convId === conversationId && sender !== 'user') { // Check if the sender is not 'user'
                 setMessages((prevMessages) => [...prevMessages, { message, sender: 'otherUser' }]);
             }
         };
