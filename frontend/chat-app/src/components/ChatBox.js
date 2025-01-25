@@ -4,11 +4,10 @@ import io from 'socket.io-client';
 import SyncLoader from 'react-spinners/SyncLoader';
 import defaultProfile from '../profiles/defaultProfile.jpg';
 
-const socket = io(process.env.BACKEND_URL);
+const socket = io(process.env.REACT_APP_BACKEND_URL);
 
 const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationId, togglePage }) => {
-    const baseUrl = process.env.REACT_APP_BACKEND_URL
-
+    const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
     const [messages, setMessages] = useState(messageData);
     const [message, setMessage] = useState('');
@@ -51,11 +50,13 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
     useEffect(() => {
         fetchMessages();
 
-        const messageListener = (convId) => {
+        const messageListener = ({ message, conversationId: convId }) => {
             if (convId === conversationId) {
-                fetchMessages();
+                setMessages((prevMessages) => [...prevMessages, { message, sender: 'otherUser' }]);
             }
         };
+
+        socket.emit('joinConversation', conversationId);
         socket.on('checkMsgs', messageListener);
 
         return () => {
@@ -95,14 +96,13 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
             }
 
             setMessage('');
+            socket.emit('newMsg', { message, conversationId });
         } catch (error) {
             console.error('Error sending message:', error);
             setMessages((prev) => prev.slice(0, -1)); // Remove the last (temp) message
         } finally {
             setIsSending(false);
         }
-
-        socket.emit('newMsg', { message, conversationId });
     };
 
     const handleKeyPress = (e) => {
