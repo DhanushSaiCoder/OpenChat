@@ -7,7 +7,8 @@ import defaultProfile from '../profiles/defaultProfile.jpg';
 const socket = io(process.env.BACKEND_URL);
 
 const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationId, togglePage }) => {
-    const baseUrl = process.env.BACKEND_URL
+    const baseUrl = process.env.REACT_APP_BACKEND_URL
+
 
     const [messages, setMessages] = useState(messageData);
     const [message, setMessage] = useState('');

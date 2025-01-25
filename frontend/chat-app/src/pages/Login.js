@@ -3,7 +3,8 @@ import '../styles/Login.css';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const baseURL = process.env.BACKEND_URL;
+  const baseUrl = process.env.REACT_APP_BACKEND_URL
+
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

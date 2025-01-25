@@ -3,7 +3,8 @@ import '../styles/SignUp.css';  // Import the CSS file
 import { Link } from 'react-router-dom';
 
 const SignUp = () => {
-  const baseURL = process.env.BACKEND_URL
+  const baseUrl = process.env.REACT_APP_BACKEND_URL
+
 
   // State to hold input values
   const [username, setUsername] = useState('');

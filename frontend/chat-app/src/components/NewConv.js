@@ -5,8 +5,7 @@ import defaultProfile from '../profiles/defaultProfile.jpg';
 import Fuse from 'fuse.js';
 
 const NewConv = () => {
-    const baseURL = process.env.BACKEND_URL
-
+    const baseUrl = process.env.REACT_APP_BACKEND_URL
 
     const [friends, setFriends] = useState([]);
     const [filteredFriends, setFilteredFriends] = useState([]);

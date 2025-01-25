@@ -5,7 +5,8 @@ import Fuse from 'fuse.js';
 import SyncLoader from 'react-spinners/SyncLoader';
 
 const ChatList = ({ displayChatBox, togglePage }) => {
-    const baseURL = process.env.BACKEND_URL;
+    const baseUrl = process.env.REACT_APP_BACKEND_URL
+
     const [userId, setUserId] = useState('');
     const [users, setUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
@@ -17,7 +18,7 @@ const ChatList = ({ displayChatBox, togglePage }) => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            fetch(`${baseURL}/auth`, {
+            fetch(`${baseUrl}/auth`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -43,7 +44,7 @@ const ChatList = ({ displayChatBox, togglePage }) => {
         if (userId !== '') {
             setLoading(true);
             const token = localStorage.getItem('token');
-            fetch(`${baseURL}/conversation`, {
+            fetch(`${baseUrl}/conversation`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`
