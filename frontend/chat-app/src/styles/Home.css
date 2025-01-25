@@ -4,7 +4,6 @@
     box-sizing: border-box;
 }
 .container {
-    background: linear-gradient(135deg, #6e7dff, #4ac29c);
     background: rgba(21, 33, 44, 0.99);
 
     width: 100vw;
@@ -61,8 +60,6 @@
     #darker,.container{
         justify-content: flex-start;
         flex-direction: column;
-        height: 85%;
-
         padding-top: 20px;
     }
     
