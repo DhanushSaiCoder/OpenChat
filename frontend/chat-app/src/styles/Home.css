@@ -57,5 +57,7 @@
     }
     #darker,.container{
         justify-content: flex-start;
+        flex-direction: column;
+        padding-top: 0;
     }
 }
