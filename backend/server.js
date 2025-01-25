@@ -49,7 +49,7 @@ io.on('connection', (socket) => {
     // Handle "newMsg" event
     socket.on('newMsg', ({ message, conversationId, senderId }) => {
         console.log('New message:', message, 'Conversation ID:', conversationId);
-        io.to(conversationId).emit('checkMsgs', { message, conversationId, senderId });
+        socket.to(conversationId).emit('checkMsgs', { message, conversationId, senderId });
     });
 
     // Handle user disconnect
