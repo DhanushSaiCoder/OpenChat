@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../styles/ChatList.css';
 import Conversation from './Conversation';
 import Fuse from 'fuse.js';
+import SyncLoader from 'react-spinners/SyncLoader';
 
 const ChatList = ({ displayChatBox, togglePage }) => {
     const baseURL = 'http://localhost:5000';
@@ -9,6 +10,7 @@ const ChatList = ({ displayChatBox, togglePage }) => {
     const [users, setUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
     const [search, setSearch] = useState('');
+    const [loading, setLoading] = useState(true);
 
     const [selectedUserId, setSelectedUserId] = useState(null);
 
@@ -25,17 +27,21 @@ const ChatList = ({ displayChatBox, togglePage }) => {
                 .then((data) => {
                     const userId = data.userId;
                     setUserId(userId);
+                    setLoading(false);
                 })
                 .catch((error) => {
                     console.error('Error fetching user ID:', error);
+                    setLoading(false);
                 });
         } else {
             console.log('No token found');
+            setLoading(false);
         }
     }, []);
 
     useEffect(() => {
         if (userId !== '') {
+            setLoading(true);
             const token = localStorage.getItem('token');
             fetch(`${baseURL}/conversation`, {
                 method: 'GET',
@@ -62,9 +68,11 @@ const ChatList = ({ displayChatBox, togglePage }) => {
                         }
                     });
                     setUsers(userList);
+                    setLoading(false);
                 })
                 .catch((error) => {
                     console.error('Error fetching conversations:', error);
+                    setLoading(false);
                 });
         }
     }, [userId]);
@@ -105,7 +113,11 @@ const ChatList = ({ displayChatBox, togglePage }) => {
                 <input onChange={handleSearchChange} id="searchInp" type='search' placeholder='Search...' />
             </div>
             <div id='chatListContent'>
-                {search.length ? (
+                {loading ? (
+                    <div className='loaderContainer'>
+                        <SyncLoader color={"#fff"} size={10} />
+                    </div>
+                ) : search.length ? (
                     filteredUsers.map((user) => (
                         <Conversation
                             togglePage={togglePage}
@@ -130,14 +142,17 @@ const ChatList = ({ displayChatBox, togglePage }) => {
                         />
                     ))
                 )}
-                <p
-                    onClick={() => {
-                        window.location.href = '/addConversation'
-                    }}
-                    className='addConv'
-                >
-                    + Add Friend
-                </p>
+                {!loading && (
+                    <p
+                        onClick={() => {
+                            window.location.href = '/addConversation'
+                        }}
+                        className='addConv'
+                    >
+                        + Add Friend
+                    </p>
+                )}
+
             </div>
         </div>
     );

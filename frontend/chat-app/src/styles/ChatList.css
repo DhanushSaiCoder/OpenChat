@@ -143,3 +143,10 @@ input[type="search"]::-webkit-search-results-decoration {
 .conversation.selected {
     background-color: #e0f7fa4a; /* Change this to the desired color */
 }
+
+.loaderContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
