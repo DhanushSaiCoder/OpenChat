@@ -46,12 +46,12 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
         }
     }, [userId, token]);
 
-    // Listen for new messages and fetch them
+    // Listen for new messages
     useEffect(() => {
         fetchMessages();
 
-        const messageListener = ({ message, sender, conversationId: convId }) => {
-            if (convId === conversationId && sender !== 'user') { // Check if the sender is not 'user'
+        const messageListener = ({ message, senderId, conversationId: convId }) => {
+            if (convId === conversationId && senderId !== userId) { // Check if the sender is not the current user
                 setMessages((prevMessages) => [...prevMessages, { message, sender: 'otherUser' }]);
             }
         };
@@ -62,7 +62,7 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
         return () => {
             socket.off('checkMsgs', messageListener);
         };
-    }, [conversationId, fetchMessages]);
+    }, [conversationId, fetchMessages, userId]);
 
     // Scroll to the bottom of the chat when messages change
     useEffect(() => {
@@ -96,7 +96,7 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
             }
 
             setMessage('');
-            socket.emit('newMsg', { message, conversationId });
+            socket.emit('newMsg', { message, conversationId, senderId: userId }); // Include senderId
         } catch (error) {
             console.error('Error sending message:', error);
             setMessages((prev) => prev.slice(0, -1)); // Remove the last (temp) message
