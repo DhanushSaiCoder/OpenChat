@@ -137,6 +137,7 @@ li {
 @media (max-width: 768px) {
     .navbar {
         padding: 20px;
+        border-radius: 0 0 20px 20px;
     }
     #title {
         font-size: large;
