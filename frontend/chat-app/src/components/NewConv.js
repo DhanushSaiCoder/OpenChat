@@ -143,7 +143,6 @@ const NewConv = () => {
                                 <img className='profilePic' src={defaultProfile} alt="profile" />
                                 <div className='userDetailsDiv'>
                                     <h4>{user.username}</h4>
-                                    <p className='mails'>{user.email}</p>
                                 </div>
                                 <div
                                     onClick={!loading[user.userId] ? () => { postConversation(user.userId) } : null}
@@ -161,7 +160,6 @@ const NewConv = () => {
                                 <img className='profilePic' src={defaultProfile} alt="profile" />
                                 <div className='userDetailsDiv'>
                                     <h4>{user.username}</h4>
-                                    <p className='mails'>{user.email}</p>
                                 </div>
                                 <div
                                     onClick={!loading[user.userId] ? () => { postConversation(user.userId) } : null}

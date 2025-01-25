@@ -106,7 +106,7 @@ body {
 }
 
 .logout-button:hover {
-    background-color: #e53935; /* Darker red when hovered */
+    background-color: #e5383562; /* Darker red when hovered */
 }
 
 .logout-button:focus {

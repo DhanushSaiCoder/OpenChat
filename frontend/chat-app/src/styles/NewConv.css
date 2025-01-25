@@ -222,4 +222,40 @@ input[type="search"]::-ms-reveal {
     #newConv {
         min-width: 300px;
     }
+    .userDetailsDiv h4 {
+        font-size: 0.75rem;
+    }
+    .addFriendDiv {
+        width: 50px;
+        height: 46%;
+    }
+
+    .profilePic {
+        width: 30px;
+        height: 30px;
+        border-radius: 15px;
+    }
+    .conversation {
+        padding: 5px 0;
+    }
+    
+    .userDetailsDiv {
+        white-space: nowrap; /* Prevent text wrapping */
+        overflow: hidden; /* Hide overflowing text */
+        text-overflow: ellipsis; /* Show "..." for truncated text */
+    }
+    .lastMessage {
+        opacity: 0.675;
+        font-size: small;
+        padding-left: 1px;
+    }
+    .mails {
+        opacity: 0.575;
+    }
+    .usersOver {
+        margin-top: 25%;
+    }
+    
+
+   
 }
