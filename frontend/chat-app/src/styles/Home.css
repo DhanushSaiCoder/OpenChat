@@ -12,7 +12,6 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    border: 1px solid #f4f5ff;
 }
 .home {
     width: 95%;
@@ -23,7 +22,6 @@
     flex-direction: column;
     gap: 20px;
     flex-wrap: nowrap;
-    border: 1px solid red;
 
 }
 #darker {
@@ -34,7 +32,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid green;
 
 }
 #home-content {
@@ -43,7 +40,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 1px solid blue;
 
 }
 
@@ -60,7 +56,6 @@
     #darker,.container{
         justify-content: flex-start;
         flex-direction: column;
-        padding-top: 20px;
     }
     
 }
