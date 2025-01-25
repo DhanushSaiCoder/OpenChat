@@ -222,7 +222,7 @@ input[type="search"]::-ms-reveal {
     #newConv {
         min-width: 300px;
     }
-    .userDetailsDiv h4 {
+    .newConvUserName{
         font-size: 0.75rem;
     }
     .addFriendDiv {
@@ -232,7 +232,7 @@ input[type="search"]::-ms-reveal {
         padding: 0 10px;
     }
 
-    .profilePic {
+    .newConvProfilePic {
         width: 30px;
         height: 30px;
         border-radius: 15px;

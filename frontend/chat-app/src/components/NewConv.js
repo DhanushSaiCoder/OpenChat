@@ -140,9 +140,9 @@ const NewConv = () => {
                     ) : !search.length && friends.length > 0 ? (
                         friends.map((user) => (
                             <div className='conversation' key={user.userId}>
-                                <img className='profilePic' src={defaultProfile} alt="profile" />
+                                <img className='newConvProfilePic' src={defaultProfile} alt="profile" />
                                 <div className='userDetailsDiv'>
-                                    <h4>{user.username}</h4>
+                                    <h4 className='newConvUserName'>{user.username}</h4>
                                 </div>
                                 <div
                                     onClick={!loading[user.userId] ? () => { postConversation(user.userId) } : null}
@@ -157,9 +157,9 @@ const NewConv = () => {
                     {search.length && filteredFriends.length > 0 ? (
                         filteredFriends.map((user) => (
                             <div className='conversation' key={user.userId}>
-                                <img className='profilePic' src={defaultProfile} alt="profile" />
+                                <img className='newConvProfilePic' src={defaultProfile} alt="profile" />
                                 <div className='userDetailsDiv'>
-                                    <h4>{user.username}</h4>
+                                    <h4 className='newConvUserName'>{user.username}</h4>
                                 </div>
                                 <div
                                     onClick={!loading[user.userId] ? () => { postConversation(user.userId) } : null}
