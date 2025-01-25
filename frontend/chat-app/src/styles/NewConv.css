@@ -226,8 +226,10 @@ input[type="search"]::-ms-reveal {
         font-size: 0.75rem;
     }
     .addFriendDiv {
-        width: 50px;
+        width: auto;
         height: 46%;
+        border-radius: 7px;
+        padding: 0 10px;
     }
 
     .profilePic {
@@ -255,7 +257,7 @@ input[type="search"]::-ms-reveal {
     .usersOver {
         margin-top: 25%;
     }
-    
+
 
    
 }
