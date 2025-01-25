@@ -3,6 +3,8 @@ import '../styles/Login.css';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const baseURL = process.env.BACKEND_URL;
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -22,7 +24,7 @@ const Login = () => {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:5000/auth/login', {
+      const response = await fetch(`${baseUrl}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

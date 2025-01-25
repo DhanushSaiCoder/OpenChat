@@ -3,6 +3,8 @@ import { Outlet, Link, useNavigate } from "react-router-dom";
 import '../styles/Layout.css'; // Import the CSS file
 
 const Layout = () => {
+  const baseUrl = process.env.BACKEND_URL;
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userDoc, setUserDoc] = useState({});
   const navigate = useNavigate(); // useNavigate hook for redirection

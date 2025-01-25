@@ -5,6 +5,9 @@ import defaultProfile from '../profiles/defaultProfile.jpg';
 import Fuse from 'fuse.js';
 
 const NewConv = () => {
+    const baseURL = process.env.BACKEND_URL
+
+
     const [friends, setFriends] = useState([]);
     const [filteredFriends, setFilteredFriends] = useState([]);
     const [search, setSearch] = useState('');
@@ -17,7 +20,7 @@ const NewConv = () => {
 
     // Get logged in user id
     useEffect(() => {
-        fetch(`http://localhost:5000/auth/`, {
+        fetch(`${baseUrl}/auth/`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -39,7 +42,7 @@ const NewConv = () => {
 
     // Get all the users by GET /users
     useEffect(() => {
-        fetch(`http://localhost:5000/users/`, {
+        fetch(`${baseUrl}/users/`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -69,7 +72,7 @@ const NewConv = () => {
     const postConversation = (id) => {
         setLoading(prevState => ({ ...prevState, [id]: true }));
 
-        fetch(`http://localhost:5000/conversation/${id}`, {
+        fetch(`${baseUrl}/conversation/${id}`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,

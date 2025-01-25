@@ -5,7 +5,7 @@ import Fuse from 'fuse.js';
 import SyncLoader from 'react-spinners/SyncLoader';
 
 const ChatList = ({ displayChatBox, togglePage }) => {
-    const baseURL = 'http://localhost:5000';
+    const baseURL = process.env.BACKEND_URL;
     const [userId, setUserId] = useState('');
     const [users, setUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);

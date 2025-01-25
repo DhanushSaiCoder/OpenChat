@@ -3,7 +3,7 @@ import '../styles/SignUp.css';  // Import the CSS file
 import { Link } from 'react-router-dom';
 
 const SignUp = () => {
-  const baseURL = 'http://localhost:5000'
+  const baseURL = process.env.BACKEND_URL
 
   // State to hold input values
   const [username, setUsername] = useState('');
@@ -46,7 +46,7 @@ const SignUp = () => {
 
     try {
       // Send POST request to the signup endpoint
-      const response = await fetch('http://localhost:5000/auth/signup', {
+      const response = await fetch(`${baseUrl}/auth/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

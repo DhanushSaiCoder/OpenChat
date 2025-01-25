@@ -4,7 +4,7 @@ import defaultProfile from '../profiles/defaultProfile.jpg';
 
 const Conversation = (props) => {
     const { userName, userId, lastMessage, displayMessages, togglePage, isSelected } = props;
-    const baseURL = 'http://localhost:5000';
+    const baseURL = process.env.BACKEND_URL;
     const token = localStorage.getItem('token');
 
     const [messagesData, setMessagesData] = useState([]);

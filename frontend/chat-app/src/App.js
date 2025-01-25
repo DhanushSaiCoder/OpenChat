@@ -6,7 +6,7 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import NewConv from './components/NewConv';
 function App() {
-  const baseUrl = 'http://localhost:5000'
+  const baseUrl = process.env.BACKEND_URL;
   const [data, setData] = useState('');
 
   useEffect(() => {
