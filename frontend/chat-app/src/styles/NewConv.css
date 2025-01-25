@@ -134,7 +134,7 @@ input[type="search"]::-ms-reveal {
     background-color: rgba(0, 0, 0, 0.066);
 }
 
-.profilePic {
+.newConvProfilePic {
     width: 45px;
     height: 45px;
     border-radius: 22.5px;
