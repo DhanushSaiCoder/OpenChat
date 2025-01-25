@@ -58,6 +58,9 @@
     #darker,.container{
         justify-content: flex-start;
         flex-direction: column;
-        padding-top: 0;
+        padding-top: 20px;
+    }
+    #darker{
+        height: auto;
     }
 }
