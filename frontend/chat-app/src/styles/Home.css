@@ -3,6 +3,7 @@
     width: 100vw;
     height: 90vh;
     color: #f4f5ff;
+    border: 1px solid red;
 }
 .home {
     width: 95%;
@@ -28,11 +29,17 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
 }
 
 @media (max-width: 768px) {
-    #home-content{
+    .container {
+        background: linear-gradient(135deg, #6e7dff, #4ac29c);
+        width: 100vw;
+        height: 90vh;
+        color: #f4f5ff;
+        border: 1px solid red;
+    }
+    #home-content {
         justify-content: center;
     }
 }
