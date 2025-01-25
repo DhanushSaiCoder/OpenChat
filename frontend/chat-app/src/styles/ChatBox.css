@@ -103,7 +103,6 @@
     border-bottom-right-radius: 5px;
 }
 
-
 #newMsgDiv {
     height: 13%;
     width: 100%;
@@ -195,14 +194,13 @@
         transform: scale(0.8);
     }
 }
-.profImg{
+.profImg {
     height: 40px;
     width: 40px;
     padding: 0;
     border-radius: 20px;
-    
 }
-.backBtn{
+.backBtn {
     display: none;
     background: transparent;
     border: none;
@@ -225,16 +223,15 @@
 @media (max-width: 768px) {
     .ChatBox {
         width: 95vw;
-
     }
-    #chatBoxHeader h2{
+    #chatBoxHeader h2 {
         font-size: large;
     }
-    #chatBoxHeader{
+    #chatBoxHeader {
         padding: 0;
     }
-   
-    .backBtn{
+
+    .backBtn {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -245,4 +242,15 @@
         font-size: large;
     }
 
+    #newMsgDiv {
+        height: 13%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        padding: 10px 10px;
+        background: rgba(49, 73, 95, 0.79);
+        border-radius: 0 0 20px 20px;
+        box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+    }
 }
