@@ -150,6 +150,7 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
                             value={message}
                             onChange={handleMessageChange}
                             onKeyDown={handleKeyPress}
+                            autoComplete='off'
                         />
                         <button id="sendButton" onClick={handleSendMessage} disabled={isSending}>
                             {isSending ? 'Sending...' : 'Send'}
@@ -178,6 +179,7 @@ const ChatBox = ({ messageData = [], userName = 'Unknown', userId, conversationI
                             value={message}
                             onChange={handleMessageChange}
                             onKeyDown={handleKeyPress}
+                            autoComplete='off'
                         />
                         <button id="sendButton" onClick={handleSendMessage} disabled={isSending}>
                             {isSending ? 'Sending...' : 'Send'}
