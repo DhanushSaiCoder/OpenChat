@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/NewConv.css';
+import SyncLoader from 'react-spinners/SyncLoader';
 import defaultProfile from '../profiles/defaultProfile.jpg';
 import Fuse from 'fuse.js';
 
@@ -9,10 +10,10 @@ const NewConv = () => {
     const [search, setSearch] = useState('');
 
     const [userId, setUserId] = useState('');
-    const [reload, setReload] = useState(true);
-    const token = localStorage.getItem('token');
+    const [loadingFriends, setLoadingFriends] = useState(true); // Loader for initial loading
+    const [loading, setLoading] = useState({}); // Loader for adding friends
 
-    const [loading, setLoading] = useState({}); // New state for loading
+    const token = localStorage.getItem('token');
 
     // Get logged in user id
     useEffect(() => {
@@ -51,17 +52,17 @@ const NewConv = () => {
                 return response.json();
             })
             .then((data) => {
-                console.log('raw friends: ', data);
                 const frnds = data.map(e => ({
                     username: e.username,
                     email: e.email,
                     userId: e._id,
                 }));
-                console.log('friends', frnds);
                 setFriends(frnds);
+                setLoadingFriends(false); // Stop loader once friends are loaded
             })
             .catch((error) => {
                 console.error('Error fetching users:', error);
+                setLoadingFriends(false); // Stop loader on error
             });
     }, [token]);
 
@@ -130,7 +131,11 @@ const NewConv = () => {
                     <div id='searchDiv'>
                         <input onChange={handleSearchChange} id="newConvSearchInp" type='search' placeholder='Search by username...' />
                     </div>
-                    {!search.length && friends.length > 0 ? (
+                    {loadingFriends ? (
+                        <div className='loaderContainer'>
+                            <SyncLoader color={"#fff"} size={10} />
+                        </div>
+                    ) : !search.length && friends.length > 0 ? (
                         friends.map((user) => (
                             <div className='conversation' key={user.userId}>
                                 <img className='profilePic' src={defaultProfile} alt="profile" />
@@ -138,8 +143,8 @@ const NewConv = () => {
                                     <h4>{user.username}</h4>
                                     <p className='mails'>{user.email}</p>
                                 </div>
-                                <div 
-                                    onClick={!loading[user.userId] ? () => { postConversation(user.userId) } : null} 
+                                <div
+                                    onClick={!loading[user.userId] ? () => { postConversation(user.userId) } : null}
                                     className={`addFriendDiv ${loading[user.userId] ? 'loading' : ''}`}
                                 >
                                     <b>{loading[user.userId] ? 'Adding...' : 'Add'}</b>
@@ -156,8 +161,8 @@ const NewConv = () => {
                                     <h4>{user.username}</h4>
                                     <p className='mails'>{user.email}</p>
                                 </div>
-                                <div 
-                                    onClick={!loading[user.userId] ? () => { postConversation(user.userId) } : null} 
+                                <div
+                                    onClick={!loading[user.userId] ? () => { postConversation(user.userId) } : null}
                                     className={`addFriendDiv ${loading[user.userId] ? 'loading' : ''}`}
                                 >
                                     <b>{loading[user.userId] ? 'Adding...' : 'Add'}</b>
@@ -166,7 +171,7 @@ const NewConv = () => {
                         ))
                     ) : null}
 
-                    {!friends.length && (
+                    {!friends.length && !loadingFriends && (
                         <p className='usersOver'>You are a friend of all users.<br />Waiting for a new user to sign up</p>
                     )}
                 </div>
