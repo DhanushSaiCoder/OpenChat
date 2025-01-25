@@ -20,6 +20,7 @@
     align-items: center;
     justify-content: space-evenly;
     flex-direction: column;
+    gap: 20px;
     flex-wrap: nowrap;
     border: 1px solid red;
 
@@ -58,9 +59,9 @@
     #darker,.container{
         justify-content: flex-start;
         flex-direction: column;
+        height: 85vh;
+
         padding-top: 20px;
     }
-    #darker{
-        height: auto;
-    }
+    
 }
