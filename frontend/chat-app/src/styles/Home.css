@@ -11,6 +11,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    border: 1px solid #f4f5ff;
 }
 .home {
     width: 95%;
@@ -20,6 +21,8 @@
     justify-content: space-evenly;
     flex-direction: column;
     flex-wrap: nowrap;
+    border: 1px solid red;
+
 }
 #darker {
     background: rgba(21, 33, 44, 0.99);
@@ -29,6 +32,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 1px solid green;
+
 }
 #home-content {
     width: 100%;
@@ -36,6 +41,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border: 1px solid blue;
+
 }
 
 @media (max-width: 768px) {
