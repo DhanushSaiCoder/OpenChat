@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const path = require('path'); // Import path module
 dotenv.config();
 
 const app = express();
@@ -67,13 +68,18 @@ io.on('connection', (socket) => {
         console.log(`User disconnected: ${socket.id}`);
         // Optional: Clear intervals related to the user if needed
     });
-
-   
 });
 
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'frontend/chat-app/build')));
+
+// Catch-all route to handle React routing
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'frontend/chat-app/build', 'index.html'));
+});
 
 // Sample Route
-app.get('/', (req, res) => res.send('API is running...'));
+app.get('/api', (req, res) => res.send('API is running...'));
 
 // Start the server
 const PORT = process.env.PORT || 5000;

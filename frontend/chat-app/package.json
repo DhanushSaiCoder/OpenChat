@@ -44,5 +44,6 @@
   },
   "devDependencies": {
     "react-router-dom": "^7.1.1"
-  }
+  },
+  "homepage": "."
 }
